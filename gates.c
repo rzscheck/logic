@@ -4,19 +4,15 @@
 // There's an initialization function for each gate/circuit that sets its inputs to zero and does the same to any subcomponents it might have
 // The logic gates are all pretty self-explanatory
 
-void Nand(NandGate* nand);
-
 void initNand(NandGate* nand) {
 	for (int i = 0; i < 2; i++) nand->in[i] = '0';
 	Nand(nand);
 }
 
 void Nand(NandGate* nand) {
-	if ((nand->in[0] == nand->in[1]) && (nand->in[0] == '1')) nand->out = '0';
+	if ((nand->in[0] == '1') && (nand->in[1] == '1')) nand->out = '0';
 	else nand->out = '1';
 }
-
-void Not(NotGate* not);
 
 void initNot(NotGate* not) {
 	not->in = '0';
@@ -30,8 +26,6 @@ void Not(NotGate* not) {
 	Nand(&not->nand);
 	not->out = not->nand.out;
 }
-
-void And(AndGate* and);
 
 void initAnd(AndGate* and) {
 	for (int i = 0; i < 2; i++) and->in[i] = '0';
@@ -48,8 +42,6 @@ void And(AndGate* and) {
 	Not(&and->not);
 	and->out = and->not.out;
 }
-
-void Or(OrGate* or);
 
 void initOr(OrGate* or) {
 	for (int i = 0; i < 2; i++) {
@@ -70,8 +62,6 @@ void Or(OrGate* or) {
 	Nand(&or->nand);
 	or->out = or->nand.out;
 }
-
-void Xor(XorGate* xor);
 
 void initXor(XorGate* xor) {
 	for (int i = 0; i < 2; i++) xor->in[i] = '0';

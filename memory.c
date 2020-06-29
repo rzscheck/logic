@@ -4,8 +4,6 @@
 #include "ram.h"
 #include "memory.h"
 
-void Memory(MemoryComp* mem);
-
 void initMemory(MemoryComp* mem) {
 	int i;
 	mem->clock = '0';

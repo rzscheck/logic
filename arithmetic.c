@@ -3,8 +3,6 @@
 #include "gates.h"
 #include "arithmetic.h"
 
-void HalfAdd(HalfAddComp* halfAdd);
-
 void initHalfAdd(HalfAddComp* halfAdd) {
 	int i;
 	for (i = 0; i < 2; i++) halfAdd->in[i] = '0';
@@ -31,8 +29,6 @@ void HalfAdd(HalfAddComp* halfAdd) {
 	halfAdd->out[0] = halfAdd->not.out;
 	halfAdd->out[1] = halfAdd->nand[3].out;
 }
-
-void FullAdd(FullAddComp* fullAdd);
 
 void initFullAdd(FullAddComp* fullAdd) {
 	int i;
@@ -73,8 +69,6 @@ void FullAdd(FullAddComp* fullAdd) {
 	fullAdd->out[1] = fullAdd->nand[7].out;
 }
 
-void Add(AddComp* add);
-
 void initAdd(AddComp* add) {
 	int i, j;
 	add->carryIn = '0';
@@ -100,8 +94,6 @@ void Add(AddComp* add) {
 	add->carryOut = add->fullAdd[7].out[0];
 }
 
-void Increment(IncrementComp* increment);
-
 void initIncrement(IncrementComp* increment) {
 	int i;
 	for (i = 0; i < 8; i++) increment->in[i] = '0';
@@ -124,8 +116,6 @@ void Increment(IncrementComp* increment) {
 		increment->out[i] = increment->add.out[i];
 	}
 }
-
-void Subtract(SubtractComp* subtract);
 
 void initSubtract(SubtractComp* subtract) {
 	int i, j;
@@ -155,8 +145,6 @@ void Subtract(SubtractComp* subtract) {
 		subtract->out[i] = subtract->add.out[i];
 	}
 }
-
-void EqualsZero(EqualsZeroComp* equalsZero);
 
 void initEqualsZero(EqualsZeroComp* equalsZero) {
 	int i;
@@ -192,8 +180,6 @@ void EqualsZero(EqualsZeroComp* equalsZero) {
 	Not(&equalsZero->not);
 	equalsZero->out = equalsZero->not.out;
 }
-
-void LessThanZero(LessThanZeroComp* lessThanZero);
 
 void initLessThanZero(LessThanZeroComp* lessThanZero) {
 	int i;

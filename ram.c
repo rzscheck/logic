@@ -5,8 +5,6 @@
 #include "components.h"
 #include "ram.h"
 
-void RAM(RAMComp* ram);
-
 void initRAM(RAMComp* ram) {
 	int i;
 	ram->store = '0';
@@ -35,8 +33,6 @@ void RAM(RAMComp* ram) {
 	Mux8(&ram->mux8);
 	for (i = 0; i < 8; i++) ram->out[i] = ram->mux8.out[i];
 }
-
-void RAM4(RAM4Comp* ram4);
 
 void initRAM4(RAM4Comp* ram4) {
 	int i;
@@ -68,8 +64,6 @@ void RAM4(RAM4Comp* ram4) {
 	for (i = 0; i < 8; i++) ram4->out[i] = ram4->mux8.out[i];
 }
 
-void RAM8(RAM8Comp* ram8);
-
 void initRAM8(RAM8Comp* ram8) {
 	int i;
 	ram8->store = '0';
@@ -99,8 +93,6 @@ void RAM8(RAM8Comp* ram8) {
 	Mux8(&ram8->mux8);
 	for (i = 0; i < 8; i++) ram8->out[i] = ram8->mux8.out[i];
 }
-
-void RAM16(RAM16Comp* ram16);
 
 void initRAM16(RAM16Comp* ram16) {
 	int i;
@@ -132,8 +124,6 @@ void RAM16(RAM16Comp* ram16) {
 	for (i = 0; i < 8; i++) ram16->out[i] = ram16->mux8.out[i];
 }
 
-void RAM32(RAM32Comp* ram32);
-
 void initRAM32(RAM32Comp* ram32) {
 	int i;
 	ram32->store = '0';
@@ -163,8 +153,6 @@ void RAM32(RAM32Comp* ram32) {
 	Mux8(&ram32->mux8);
 	for (i = 0; i < 8; i++) ram32->out[i] = ram32->mux8.out[i];
 }
-
-void RAM64(RAM64Comp* ram64);
 
 void initRAM64(RAM64Comp* ram64) {
 	int i;
@@ -196,8 +184,6 @@ void RAM64(RAM64Comp* ram64) {
 	for (i = 0; i < 8; i++) ram64->out[i] = ram64->mux8.out[i];
 }
 
-void RAM128(RAM128Comp* ram128);
-
 void initRAM128(RAM128Comp* ram128) {
 	int i;
 	ram128->store = '0';
@@ -227,8 +213,6 @@ void RAM128(RAM128Comp* ram128) {
 	Mux8(&ram128->mux8);
 	for (i = 0; i < 8; i++) ram128->out[i] = ram128->mux8.out[i];
 }
-
-void RAM256(RAM256Comp* ram256);
 
 void initRAM256(RAM256Comp* ram256) {
 	int i;

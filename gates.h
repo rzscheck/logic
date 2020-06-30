@@ -3,50 +3,55 @@
 
 typedef char Bit;
 
-typedef struct NandGate {
+typedef struct Nand {
 	Bit in[2];
 	Bit out;
-} NandGate;
+} Nand;
 
-typedef struct NotGate {
+typedef struct Not {
 	Bit in;
-	NandGate nand;
+	Nand nand;
 	Bit out;
-} NotGate;
+} Not;
 
-typedef struct AndGate {
+typedef struct And {
 	Bit in[2];
-	NandGate nand;
-	NotGate not;
+	Nand nand;
+	Not not;
 	Bit out;
-} AndGate;
+} And;
 
-typedef struct OrGate {
+typedef struct Or {
 	Bit in[2];
-	NandGate nand;
-	NotGate not[2];
+	Nand nand;
+	Not not[2];
 	Bit out;
-} OrGate;
+} Or;
 
-typedef struct XorGate {
+typedef struct Xor {
 	Bit in[2];
-	NandGate nand[4];
+	Nand nand[4];
 	Bit out;
-} XorGate;
+} Xor;
 
-void initNand(NandGate* nand);
-void Nand(NandGate* nand);
+void initNand(Nand* nand);
+void doNand(Nand* nand);
+Nand* newNand();
 
-void initNot(NotGate* not);
-void Not(NotGate* not);
+void initNot(Not* not);
+void doNot(Not* not);
+Not* newNot();
 
-void initAnd(AndGate* and);
-void And(AndGate* and);
+void initAnd(And* and);
+void doAnd(And* and);
+And* newAnd();
 
-void initOr(OrGate* or);
-void Or(OrGate* or);
+void initOr(Or* or);
+void doOr(Or* or);
+Or* newOr();
 
-void initXor(XorGate* xor);
-void Xor(XorGate* xor);
+void initXor(Xor* xor);
+void doXor(Xor* xor);
+Xor* newXor();
 
 #endif

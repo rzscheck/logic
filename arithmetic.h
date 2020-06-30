@@ -1,72 +1,79 @@
 #ifndef logic_arithmetic_h
 #define logic_arithmetic_h
 
-typedef struct HalfAddComp {
+typedef struct HalfAdd {
 	Bit in[2];
-	NandGate nand[4];
-	NotGate not;
+	Nand nand[4];
+	Not not;
 	Bit out[2];
-} HalfAddComp;
+} HalfAdd;
 
-typedef struct FullAddComp {
+typedef struct FullAdd {
 	Bit in[3];
-	NandGate nand[8];
+	Nand nand[8];
 	Bit out[2];
-} FullAddComp;
+} FullAdd;
 
-typedef struct AddComp {
+typedef struct Add {
 	Bit in[2][8];
 	Bit carryIn;
-	FullAddComp fullAdd[8];
+	FullAdd fullAdd[8];
 	Bit out[8];
 	Bit carryOut;
-} AddComp;
+} Add;
 
-typedef struct IncrementComp {
+typedef struct Increment {
 	Bit in[8];
-	AddComp add;
-	NotGate not;
+	Add add;
+	Not not;
 	Bit out[8];
-} IncrementComp;
+} Increment;
 
-typedef struct SubtractComp {
+typedef struct Subtract {
 	Bit in[2][8];
-	NotGate not[9];
-	AddComp add;
+	Not not[9];
+	Add add;
 	Bit out[8];
-} SubtractComp;
+} Subtract;
 
-typedef struct EqualsZeroComp {
+typedef struct EqualsZero {
 	Bit in[8];
-	OrGate or[7];
-	NotGate not;
+	Or or[7];
+	Not not;
 	Bit out;
-} EqualsZeroComp;
+} EqualsZero;
 
-typedef struct LessThanZeroComp {
+typedef struct LessThanZero {
 	Bit in[8];
 	Bit out;
-} LessThanZeroComp;
+} LessThanZero;
 
-void initHalfAdd(HalfAddComp* halfAdd);
-void HalfAdd(HalfAddComp* halfAdd);
+void initHalfAdd(HalfAdd* halfAdd);
+void doHalfAdd(HalfAdd* halfAdd);
+HalfAdd* newHalfAdd();
 
-void initFullAdd(FullAddComp* fullAdd);
-void FullAdd(FullAddComp* fullAdd);
+void initFullAdd(FullAdd* fullAdd);
+void doFullAdd(FullAdd* fullAdd);
+FullAdd* newFullAdd();
 
-void initAdd(AddComp* add);
-void Add(AddComp* add);
+void initAdd(Add* add);
+void doAdd(Add* add);
+Add* newAdd();
 
-void initIncrement(IncrementComp* increment);
-void Increment(IncrementComp* increment);
+void initIncrement(Increment* increment);
+void doIncrement(Increment* increment);
+Increment* newIncrement();
 
-void initSubtract(SubtractComp* subtract);
-void Subtract(SubtractComp* subtract);
+void initSubtract(Subtract* subtract);
+void doSubtract(Subtract* subtract);
+Subtract* newSubtract();
 
-void initEqualsZero(EqualsZeroComp* equalsZero);
-void EqualsZero(EqualsZeroComp* equalsZero);
+void initEqualsZero(EqualsZero* equalsZero);
+void doEqualsZero(EqualsZero* equalsZero);
+EqualsZero* newEqualsZero();
 
-void initLessThanZero(LessThanZeroComp* lessThanZero);
-void LessThanZero(LessThanZeroComp* lessThanZero);
+void initLessThanZero(LessThanZero* lessThanZero);
+void doLessThanZero(LessThanZero* lessThanZero);
+LessThanZero* newLessThanZero();
 
 #endif

@@ -1,15 +1,16 @@
 #ifndef logic_alu_h
 #define logic_alu_h
 
-typedef struct UnaryComp {
+typedef struct Unary {
 	Bit zero, negate;
 	Bit data[8];
-	NotGate not[8];
+	Not not[8];
 	Mux8Comp mux8[2];
 	Bit out[8];
-} UnaryComp;
+} Unary;
 
-void initUnary(UnaryComp* unary);
-void Unary(UnaryComp* unary);
+void initUnary(Unary* unary);
+void doUnary(Unary* unary);
+Unary* newUnary();
 
 #endif

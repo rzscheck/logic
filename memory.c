@@ -4,9 +4,11 @@
 #include "ram.h"
 #include "memory.h"
 
-void Memory(MemoryComp* mem);
+//
+// Memory
+//
 
-void initMemory(MemoryComp* mem) {
+void initMemory(Memory* mem) {
 	int i;
 	mem->clock = '0';
 	for (i = 0; i < 8; i++) mem->data[i] = '0';
@@ -15,10 +17,10 @@ void initMemory(MemoryComp* mem) {
 		initRegister(&mem->reg[i]);
 	}
 	initRAM256(&mem->ram);
-	Memory(mem);
+	doMemory(mem);
 }
 
-void Memory(MemoryComp* mem) {
+void doMemory(Memory* mem) {
 	int i, j;
 	for (i = 0; i < 3; i++) {
 		mem->reg[i].store = mem->store[i];
@@ -33,10 +35,15 @@ void Memory(MemoryComp* mem) {
 		mem->ram.data[i] = mem->data[i];
 		mem->ram.address[i] = mem->reg[0].out[i];
 	}
-	RAM256(&mem->ram);
+	doRAM256(&mem->ram);
 	for (i = 0; i < 3; i++) {
 		for (j = 0; j < 8; j++) mem->out[i][j] = mem->reg[i].out[j];
 	}
 	for (i = 0; i < 8; i++) mem->out[3][i] = mem->ram.out[i];
 }
 
+Memory* newMemory() {
+	Memory* memory = (Memory*)malloc(sizeof(Memory));
+	initMemory(memory);
+	return memory;
+}

@@ -13,15 +13,14 @@
 
 void testNand() {
 	Bit i, j;
-	NandGate* nand = (NandGate*)malloc(sizeof(NandGate));
-	initNand(nand);
+	Nand* nand = newNand();
 	
 	puts("Testing nand");
 	
 	for (i = '0'; i < '2'; i++) {
 		for (j = '0'; j < '2'; j++) {
 			nand->in[0] = i; nand->in[1] = j;
-			Nand(nand);
+			doNand(nand);
 			printf("%c nand %c = %c\n", i, j, nand->out);
 		}
 	}
@@ -33,14 +32,13 @@ void testNand() {
 
 void testNot() {
 	Bit i;
-	NotGate* not = (NotGate*)malloc(sizeof(NotGate));
-	initNot(not);
+	Not* not = newNot();
 	
 	puts("Testing not");
 	
 	for (i = '0'; i < '2'; i++) {
 		not->in = i;
-		Not(not);
+		doNot(not);
 		printf("not %c = %c\n", i, not->out);
 	}
 	
@@ -51,15 +49,14 @@ void testNot() {
 
 void testAnd() {
 	Bit i, j;
-	AndGate* and = (AndGate*)malloc(sizeof(AndGate));
-	initAnd(and);
+	And* and = newAnd();
 	
 	puts("Testing and");
 	
 	for (i = '0'; i < '2'; i++) {
 		for (j = '0'; j < '2'; j++) {
 			and->in[0] = i; and->in[1] = j;
-			And(and);
+			doAnd(and);
 			printf("%c and %c = %c\n", i, j, and->out);
 		}
 	}
@@ -71,15 +68,14 @@ void testAnd() {
 
 void testOr() {
 	Bit i, j;
-	OrGate* or = (OrGate*)malloc(sizeof(OrGate));
-	initOr(or);
+	Or* or = newOr();
 	
 	puts("Testing or");
 	
 	for (i = '0'; i < '2'; i++) {
 		for (j = '0'; j < '2'; j++) {
 			or->in[0] = i; or->in[1] = j;
-			Or(or);
+			doOr(or);
 			printf("%c or %c = %c\n", i, j, or->out);
 		}
 	}
@@ -91,15 +87,14 @@ void testOr() {
 
 void testXor() {
 	Bit i, j;
-	XorGate* xor = (XorGate*)malloc(sizeof(XorGate));
-	initXor(xor);
+	Xor* xor = newXor();
 	
 	puts("Testing xor");
 	
 	for (i = '0'; i < '2'; i++) {
 		for (j = '0'; j < '2'; j++) {
 			xor->in[0] = i; xor->in[1] = j;
-			Xor(xor);
+			doXor(xor);
 			printf("%c xor %c = %c\n", i, j, xor->out);
 		}
 	}
@@ -111,7 +106,7 @@ void testXor() {
 
 void testHalfAdd() {
 	Bit i, j;
-	HalfAddComp* halfAdd = (HalfAddComp*)malloc(sizeof(HalfAddComp));
+	HalfAdd* halfAdd = (HalfAdd*)malloc(sizeof(HalfAdd));
 	initHalfAdd(halfAdd);
 	
 	puts("Testing half add");
@@ -119,7 +114,7 @@ void testHalfAdd() {
 	for (i = '0'; i < '2'; i++) {
 		for (j = '0'; j < '2'; j++) {
 			halfAdd->in[0] = i; halfAdd->in[1] = j;
-			HalfAdd(halfAdd);
+			doHalfAdd(halfAdd);
 			printf("%c + %c = %s\n", i, j, halfAdd->out);
 		}
 	}
@@ -131,7 +126,7 @@ void testHalfAdd() {
 
 void testFullAdd() {
 	Bit i, j, k;
-	FullAddComp* fullAdd = (FullAddComp*)malloc(sizeof(FullAddComp));
+	FullAdd* fullAdd = (FullAdd*)malloc(sizeof(FullAdd));
 	initFullAdd(fullAdd);
 	
 	puts("Testing full add");
@@ -140,7 +135,7 @@ void testFullAdd() {
 		for (j = '0'; j < '2'; j++) {
 			for (k = '0'; k < '2'; k++) {
 				fullAdd->in[0] = i; fullAdd->in[1] = j; fullAdd->in[2] = k;
-				FullAdd(fullAdd);
+				doFullAdd(fullAdd);
 				printf("%c + %c + %c = %c%c\n", i, j, k, fullAdd->out[0], fullAdd->out[1]);
 			}
 		}
@@ -153,7 +148,7 @@ void testFullAdd() {
 
 void testAdd() {
 	int i, j;
-	AddComp* add = (AddComp*)malloc(sizeof(AddComp));
+	Add* add = (Add*)malloc(sizeof(Add));
 	initAdd(add);
 	
 	puts("testing 8-bit add");
@@ -167,7 +162,7 @@ void testAdd() {
 	}
 	
 	add->carryIn = '0';
-	Add(add);
+	doAdd(add);
 	
 	for (i = 0; i < 8; i++) printf("%c", add->in[0][i]);
 	printf(" + ");
@@ -181,14 +176,14 @@ void testAdd() {
 
 void testIncrement() {
 	int i;
-	IncrementComp* increment = (IncrementComp*)malloc(sizeof(IncrementComp));
+	Increment* increment = (Increment*)malloc(sizeof(Increment));
 	initIncrement(increment);
 	
 	puts("Testing increment");
 	
 	increment->in[7] = '1';
 	
-	Increment(increment);
+	doIncrement(increment);
 	
 	printf("increment(");
 	for (i = 0; i < 8; i++) printf("%c", increment->in[i]);
@@ -202,14 +197,14 @@ void testIncrement() {
 
 void testSubtract() {
 	int i;
-	SubtractComp* subtract = (SubtractComp*)malloc(sizeof(SubtractComp));
+	Subtract* subtract = (Subtract*)malloc(sizeof(Subtract));
 	initSubtract(subtract);
 	
 	puts("Testing subtract");
 	
 	
 	subtract->in[1][7] = '1';
-	Subtract(subtract);
+	doSubtract(subtract);
 	
 	for (i = 0; i < 8; i++) printf("%c", subtract->in[0][i]);
 	printf(" - ");
@@ -223,18 +218,18 @@ void testSubtract() {
 
 void testEqualsZero() {
 	int i;
-	EqualsZeroComp* equalsZero = (EqualsZeroComp*)malloc(sizeof(EqualsZeroComp));
+	EqualsZero* equalsZero = (EqualsZero*)malloc(sizeof(EqualsZero));
 	
 	puts("Testing equals zero");
 	
 	for (i = 0; i < 8; i++) equalsZero->in[i] = '0';
-	EqualsZero(equalsZero);
+	doEqualsZero(equalsZero);
 	
 	for (i = 0; i < 8; i++) printf("%c", equalsZero->in[i]);
 	printf(" = 0 ? %c\n", equalsZero->out);
 	
 	equalsZero->in[7] = '1';
-	EqualsZero(equalsZero);
+	doEqualsZero(equalsZero);
 	
 	for (i = 0; i < 8; i++) printf("%c", equalsZero->in[i]);
 	printf(" = 0 ? %c\n", equalsZero->out);
@@ -244,14 +239,14 @@ void testEqualsZero() {
 
 void testLessThanZero() {
 	int i;
-	LessThanZeroComp* lessThanZero = (LessThanZeroComp*)malloc(sizeof(LessThanZeroComp*));
+	LessThanZero* lessThanZero = (LessThanZero*)malloc(sizeof(LessThanZero*));
 	initLessThanZero(lessThanZero);
 	
 	puts("Testing less than zero");
 	
 	for (i = 0; i < 8; i++) lessThanZero->in[i] = '1';
 	
-	LessThanZero(lessThanZero);
+	doLessThanZero(lessThanZero);
 	
 	printf("-1 < 0 ? %c\n", lessThanZero->out);
 	
@@ -299,7 +294,7 @@ void testMux8() {
 	printf("\noutput: ");
 	for (i = 0; i < 8; i++) printf("%c", mux8->out[i]);
 	printf("\n");
-	//~ initMux(mux);
+	// initMux(mux);
 	for (i = 0; i < 8; i++) printf("%c\n", mux8->out[i]);
 	puts("Testing 8-bit mux");
 	
@@ -415,22 +410,22 @@ void testCounter() {
 
 void testRAM() {
 	int i;
-	RAMComp* ram = (RAMComp*)malloc(sizeof(RAMComp));
+	RAM* ram = (RAM*)malloc(sizeof(RAM));
 	initRAM(ram);
 	
 	for (i = 0; i < 8; i++) ram->data[i] = '1';
-	RAM(ram);
+	doRAM(ram);
 	puts("Testing RAM");
 	
-	//~ ram->address = '1';
+	// ram->address = '1';
 	ram->store = '1';
-	RAM(ram);
+	doRAM(ram);
 	ram->clock = '1';
-	RAM(ram);
+	doRAM(ram);
 	ram->store = '0';
-	RAM(ram);
+	doRAM(ram);
 	ram->clock = '0';
-	RAM(ram);
+	doRAM(ram);
 	
 	printf("RAM out: ");
 	for (i = 0; i < 8; i++) printf("%c", ram->out[i]);
@@ -441,17 +436,17 @@ void testRAM() {
 	
 	
 	for (i = 0; i < 8; i++) ram->data[i] = (i % 2) + '0';
-	RAM(ram);
+	doRAM(ram);
 	ram->address = '1';
-	RAM(ram);
+	doRAM(ram);
 	ram->store = '1';
-	RAM(ram);
+	doRAM(ram);
 	ram->clock = '1';
-	RAM(ram);
+	doRAM(ram);
 	ram->store = '0';
-	RAM(ram);
+	doRAM(ram);
 	ram->clock = '0';
-	RAM(ram);
+	doRAM(ram);
 	printf("\n\nRAM out: ");
 	for (i = 0; i < 8; i++) printf("%c", ram->out[i]);
 	printf("\nReg 0 out: ");
@@ -460,7 +455,7 @@ void testRAM() {
 	for (i = 0; i < 8; i++) printf("%c", ram->reg[1].out[i]);
 	
 	ram->address = '0';
-	RAM(ram);
+	doRAM(ram);
 	
 	printf("\n\nRAM out: ");
 	for (i = 0; i < 8; i++) printf("%c", ram->out[i]);
@@ -474,7 +469,7 @@ void testRAM() {
 
 void testUnary() {
 	int i, j, k;
-	UnaryComp* unary = (UnaryComp*)malloc(sizeof(UnaryComp));
+	Unary* unary = (Unary*)malloc(sizeof(Unary));
 	initUnary(unary);
 	
 	for (i = 0; i < 8; i++) unary->data[i] = (i % 2) + '0';
@@ -483,7 +478,7 @@ void testUnary() {
 		for (j = '0'; j < '2'; j++) {
 			unary->zero = i;
 			unary->negate = j;
-			Unary(unary);
+			doUnary(unary);
 			printf("z: %c n: %c out: ", i, j);
 			for (k = 0; k < 8; k++) printf("%c", unary->out[k]);
 			puts("");
@@ -494,25 +489,25 @@ void testUnary() {
 
 void testMemory() {
 	int i, j;
-	MemoryComp* mem = (MemoryComp*)malloc(sizeof(MemoryComp));
+	Memory* mem = (Memory*)malloc(sizeof(Memory));
 	initMemory(mem);
 	
 	mem->store[0] = '1';
 	
 	for (i = 0; i < 8; i++) mem->data[i] = '1';
-	Memory(mem);
+	doMemory(mem);
 	mem->clock = '1';
-	Memory(mem);
-	//~ mem->store[0] = '1';
+	doMemory(mem);
+	// mem->store[0] = '1';
 	mem->store[3] = '0';
 	for (i = 0; i < 8; i++) mem->data[i] = '0';
-	Memory(mem);
+	doMemory(mem);
 	mem->clock = '0';
-	Memory(mem);
+	doMemory(mem);
 	mem->store[0] = '0';
-	Memory(mem);
+	doMemory(mem);
 	mem->clock = '0';
-	Memory(mem);
+	doMemory(mem);
 		
 	for (i = 0; i < 4; i++) {
 		for (j = 0; j < 8; j++) printf("%c", mem->out[i][j]);
@@ -523,26 +518,26 @@ void testMemory() {
 }
 
 void test() {
-	//~ testNand();
-	//~ testNot();
-	//~ testAnd();
-	//~ testOr();
-	//~ testXor();
-	//~ testHalfAdd();
-	//~ testFullAdd();
-	//~ testAdd();
-	//~ testIncrement();
-	//~ testSubtract();
-	//~ testEqualsZero();
-	//~ testLessThanZero();
-	//~ testMux();
-	//~ testMux8();
-	//~ testDMux();
-	//~ testLatch();
-	//~ testDFF();
-	//~ testRegister();
-	//~ testCounter();
-	//~ testRAM();
-	//~ testUnary();
-	testMemory();
+	testNand();
+	testNot();
+	testAnd();
+	testOr();
+	testXor();
+	testHalfAdd();
+	testFullAdd();
+	testAdd();
+	testIncrement();
+	testSubtract();
+	testEqualsZero();
+	testLessThanZero();
+	// testMux();
+	// testMux8();
+	// testDMux();
+	// testLatch();
+	// testDFF();
+	// testRegister();
+	// testCounter();
+	// testRAM();
+	// testUnary();
+	// testMemory();
 }

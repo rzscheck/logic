@@ -2,7 +2,9 @@
 #include "arithmetic.h"
 #include "components.h"
 
-void Mux(MuxComp* mux);
+//
+// Mux
+//
 
 void initMux(MuxComp* mux) {
 	int i;
@@ -16,19 +18,21 @@ void initMux(MuxComp* mux) {
 void Mux(MuxComp* mux) {
 	mux->nand[0].in[0] = mux->store;
 	mux->nand[0].in[1] = mux->data[0];
-	Nand(&mux->nand[0]);
+	doNand(&mux->nand[0]);
 	mux->not.in = mux->store;
-	Not(&mux->not);
+	doNot(&mux->not);
 	mux->nand[1].in[0] = mux->not.out;
 	mux->nand[1].in[1] = mux->data[1];
-	Nand(&mux->nand[1]);
+	doNand(&mux->nand[1]);
 	mux->nand[2].in[0] = mux->nand[0].out;
 	mux->nand[2].in[1] = mux->nand[1].out;
-	Nand(&mux->nand[2]);
+	doNand(&mux->nand[2]);
 	mux->out = mux->nand[2].out;
 }
 
-void Mux8(Mux8Comp* mux8);
+//
+// Mux8
+//
 
 void initMux8(Mux8Comp* mux8) {
 	int i, j;
@@ -52,7 +56,9 @@ void Mux8(Mux8Comp* mux8) {
 	}
 }
 
-void DMux(DMuxComp* dmux);
+//
+// DMux
+//
 
 void initDMux(DMuxComp* dmux) {
 	int i;
@@ -66,17 +72,19 @@ void initDMux(DMuxComp* dmux) {
 void DMux(DMuxComp* dmux) {
 	dmux->and[0].in[0] = dmux->store;
 	dmux->and[0].in[1] = dmux->data;
-	And(&dmux->and[0]);
+	doAnd(&dmux->and[0]);
 	dmux->not.in = dmux->store;
-	Not(&dmux->not);
+	doNot(&dmux->not);
 	dmux->and[1].in[0] = dmux->not.out;
 	dmux->and[1].in[1] = dmux->data;
-	And(&dmux->and[1]);
+	doAnd(&dmux->and[1]);
 	dmux->out[0] = dmux->and[0].out;
 	dmux->out[1] = dmux->and[1].out;
 }
 
-void Latch(LatchComp* latch);
+//
+// Latch
+//
 
 void initLatch(LatchComp* latch) {
 	latch->store = '0';
@@ -93,7 +101,9 @@ void Latch(LatchComp* latch) {
 	latch->out = latch->mux.out;
 }
 
-void DFF(DFFComp* dff);
+//
+// DFF
+//
 
 void initDFF(DFFComp* dff) {
 	int i;
@@ -111,14 +121,14 @@ void initDFF(DFFComp* dff) {
 void DFF(DFFComp* dff) {
 	dff->nand[0].in[0] = dff->store;
 	dff->nand[0].in[1] = dff->clock;
-	Nand(&dff->nand[0]);
+	doNand(&dff->nand[0]);
 	dff->nand[1].in[0] = dff->store;
 	dff->nand[1].in[1] = dff->nand[0].out;
-	Nand(&dff->nand[1]);
+	doNand(&dff->nand[1]);
 	dff->not[0].in = dff->nand[0].out;
-	Not(&dff->not[0]);
+	doNot(&dff->not[0]);
 	dff->not[1].in = dff->nand[1].out;
-	Not(&dff->not[1]);
+	doNot(&dff->not[1]);
 	dff->latch[0].store = dff->not[1].out;
 	dff->latch[0].data = dff->data;
 	Latch(&dff->latch[0]);
@@ -128,7 +138,9 @@ void DFF(DFFComp* dff) {
 	dff->out = dff->latch[1].out;
 }
 
-void Register(RegisterComp* reg);
+//
+// Register
+//
 
 void initRegister(RegisterComp* reg) {
 	int i;
@@ -152,7 +164,9 @@ void Register(RegisterComp* reg) {
 	}
 }
 
-void Counter(CounterComp* counter);
+//
+// Counter
+//
 
 void initCounter(CounterComp* counter) {
 	int i;
@@ -176,7 +190,7 @@ void Counter(CounterComp* counter) {
 		counter->mux8.data[0][i] = counter->data[i];
 		counter->increment.in[i] = counter->reg.out[i];
 	}
-	Increment(&counter->increment);
+	doIncrement(&counter->increment);
 	
 	for (i = 0; i < 8; i++) counter->mux8.data[1][i] = counter->increment.out[i];
 	Mux8(&counter->mux8);

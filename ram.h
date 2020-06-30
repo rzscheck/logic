@@ -1,100 +1,108 @@
 #ifndef logic_ram_h
 #define logic_ram_h
 
-typedef struct RAMComp {
+typedef struct RAM {
 	Bit store, address, clock;
 	Bit data[8];
 	DMuxComp dmux;
 	RegisterComp reg[2];
 	Mux8Comp mux8;
 	Bit out[8];
-} RAMComp;
+} RAM;
 
-typedef struct RAM4Comp {
+typedef struct RAM4 {
 	Bit store, address[2], clock;
 	Bit data[8];
 	DMuxComp dmux;
-	RAMComp ram[2];
+	RAM ram[2];
 	Mux8Comp mux8;
 	Bit out[8];
-} RAM4Comp;
+} RAM4;
 
-typedef struct RAM8Comp {
+typedef struct RAM8 {
 	Bit store, address[3], clock;
 	Bit data[8];
 	DMuxComp dmux;
-	RAM4Comp ram4[2];
+	RAM4 ram4[2];
 	Mux8Comp mux8;
 	Bit out[8];
-} RAM8Comp;
+} RAM8;
 
-typedef struct RAM16Comp {
+typedef struct RAM16 {
 	Bit store, address[4], clock;
 	Bit data[8];
 	DMuxComp dmux;
-	RAM8Comp ram8[2];
+	RAM8 ram8[2];
 	Mux8Comp mux8;
 	Bit out[8];
-} RAM16Comp;
+} RAM16;
 
-typedef struct RAM32Comp {
+typedef struct RAM32 {
 	Bit store, address[5], clock;
 	Bit data[8];
 	DMuxComp dmux;
-	RAM16Comp ram16[2];
+	RAM16 ram16[2];
 	Mux8Comp mux8;
 	Bit out[8];
-} RAM32Comp;
+} RAM32;
 
-typedef struct RAM64Comp {
+typedef struct RAM64 {
 	Bit store, address[6], clock;
 	Bit data[8];
 	DMuxComp dmux;
-	RAM32Comp ram32[2];
+	RAM32 ram32[2];
 	Mux8Comp mux8;
 	Bit out[8];
-} RAM64Comp;
+} RAM64;
 
-typedef struct RAM128Comp {
+typedef struct RAM128 {
 	Bit store, address[7], clock;
 	Bit data[8];
 	DMuxComp dmux;
-	RAM64Comp ram64[2];
+	RAM64 ram64[2];
 	Mux8Comp mux8;
 	Bit out[8];
-} RAM128Comp;
+} RAM128;
 
-typedef struct RAM256Comp {
+typedef struct RAM256 {
 	Bit store, address[8], clock;
 	Bit data[8];
 	DMuxComp dmux;
-	RAM128Comp ram128[2];
+	RAM128 ram128[2];
 	Mux8Comp mux8;
 	Bit out[8];
-} RAM256Comp;
+} RAM256;
 
-void initRAM(RAMComp* ram);
-void RAM(RAMComp* ram);
+void initRAM(RAM* ram);
+void doRAM(RAM* ram);
+RAM* newRAM();
 
-void initRAM4(RAM4Comp* ram4);
-void RAM4(RAM4Comp* ram4);
+void initRAM4(RAM4* ram4);
+void doRAM4(RAM4* ram4);
+RAM4* newRAM4();
 
-void initRAM8(RAM8Comp* ram8);
-void RAM8(RAM8Comp* ram8);
+void initRAM8(RAM8* ram8);
+void doRAM8(RAM8* ram8);
+RAM8* newRAM8();
 
-void initRAM16(RAM16Comp* ram16);
-void RAM16(RAM16Comp* ram16);
+void initRAM16(RAM16* ram16);
+void doRAM16(RAM16* ram16);
+RAM16* newRAM16();
 
-void initRAM32(RAM32Comp* ram32);
-void RAM32(RAM32Comp* ram32);
+void initRAM32(RAM32* ram32);
+void doRAM32(RAM32* ram32);
+RAM32* newRAM32();
 
-void initRAM64(RAM64Comp* ram64);
-void RAM64(RAM64Comp* ram64);
+void initRAM64(RAM64* ram64);
+void doRAM64(RAM64* ram64);
+RAM64* newRAM64();
 
-void initRAM128(RAM128Comp* ram128);
-void RAM128(RAM128Comp* ram128);
+void initRAM128(RAM128* ram128);
+void doRAM128(RAM128* ram128);
+RAM128* newRAM128();
 
-void initRAM256(RAM256Comp* ram256);
-void RAM256(RAM256Comp* ram256);
+void initRAM256(RAM256* ram256);
+void doRAM256(RAM256* ram256);
+RAM256* newRAM256();
 
 #endif

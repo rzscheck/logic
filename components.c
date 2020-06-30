@@ -14,15 +14,15 @@ void initMux(MuxComp* mux) {
 void Mux(MuxComp* mux) {
 	mux->nand[0].in[0] = mux->store;
 	mux->nand[0].in[1] = mux->data[0];
-	Nand(&mux->nand[0]);
+	doNand(&mux->nand[0]);
 	mux->not.in = mux->store;
-	Not(&mux->not);
+	doNot(&mux->not);
 	mux->nand[1].in[0] = mux->not.out;
 	mux->nand[1].in[1] = mux->data[1];
-	Nand(&mux->nand[1]);
+	doNand(&mux->nand[1]);
 	mux->nand[2].in[0] = mux->nand[0].out;
 	mux->nand[2].in[1] = mux->nand[1].out;
-	Nand(&mux->nand[2]);
+	doNand(&mux->nand[2]);
 	mux->out = mux->nand[2].out;
 }
 
@@ -60,12 +60,12 @@ void initDMux(DMuxComp* dmux) {
 void DMux(DMuxComp* dmux) {
 	dmux->and[0].in[0] = dmux->store;
 	dmux->and[0].in[1] = dmux->data;
-	And(&dmux->and[0]);
+	doAnd(&dmux->and[0]);
 	dmux->not.in = dmux->store;
-	Not(&dmux->not);
+	doNot(&dmux->not);
 	dmux->and[1].in[0] = dmux->not.out;
 	dmux->and[1].in[1] = dmux->data;
-	And(&dmux->and[1]);
+	doAnd(&dmux->and[1]);
 	dmux->out[0] = dmux->and[0].out;
 	dmux->out[1] = dmux->and[1].out;
 }
@@ -101,14 +101,14 @@ void initDFF(DFFComp* dff) {
 void DFF(DFFComp* dff) {
 	dff->nand[0].in[0] = dff->store;
 	dff->nand[0].in[1] = dff->clock;
-	Nand(&dff->nand[0]);
+	doNand(&dff->nand[0]);
 	dff->nand[1].in[0] = dff->store;
 	dff->nand[1].in[1] = dff->nand[0].out;
-	Nand(&dff->nand[1]);
+	doNand(&dff->nand[1]);
 	dff->not[0].in = dff->nand[0].out;
-	Not(&dff->not[0]);
+	doNot(&dff->not[0]);
 	dff->not[1].in = dff->nand[1].out;
-	Not(&dff->not[1]);
+	doNot(&dff->not[1]);
 	dff->latch[0].store = dff->not[1].out;
 	dff->latch[0].data = dff->data;
 	Latch(&dff->latch[0]);

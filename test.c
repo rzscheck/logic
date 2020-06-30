@@ -13,15 +13,14 @@
 
 void testNand() {
 	Bit i, j;
-	NandGate* nand = (NandGate*)malloc(sizeof(NandGate));
-	initNand(nand);
+	Nand* nand = newNand();
 	
 	puts("Testing nand");
 	
 	for (i = '0'; i < '2'; i++) {
 		for (j = '0'; j < '2'; j++) {
 			nand->in[0] = i; nand->in[1] = j;
-			Nand(nand);
+			doNand(nand);
 			printf("%c nand %c = %c\n", i, j, nand->out);
 		}
 	}
@@ -33,14 +32,13 @@ void testNand() {
 
 void testNot() {
 	Bit i;
-	NotGate* not = (NotGate*)malloc(sizeof(NotGate));
-	initNot(not);
+	Not* not = newNot();
 	
 	puts("Testing not");
 	
 	for (i = '0'; i < '2'; i++) {
 		not->in = i;
-		Not(not);
+		doNot(not);
 		printf("not %c = %c\n", i, not->out);
 	}
 	
@@ -51,15 +49,14 @@ void testNot() {
 
 void testAnd() {
 	Bit i, j;
-	AndGate* and = (AndGate*)malloc(sizeof(AndGate));
-	initAnd(and);
+	And* and = newAnd();
 	
 	puts("Testing and");
 	
 	for (i = '0'; i < '2'; i++) {
 		for (j = '0'; j < '2'; j++) {
 			and->in[0] = i; and->in[1] = j;
-			And(and);
+			doAnd(and);
 			printf("%c and %c = %c\n", i, j, and->out);
 		}
 	}
@@ -71,15 +68,14 @@ void testAnd() {
 
 void testOr() {
 	Bit i, j;
-	OrGate* or = (OrGate*)malloc(sizeof(OrGate));
-	initOr(or);
+	Or* or = newOr();
 	
 	puts("Testing or");
 	
 	for (i = '0'; i < '2'; i++) {
 		for (j = '0'; j < '2'; j++) {
 			or->in[0] = i; or->in[1] = j;
-			Or(or);
+			doOr(or);
 			printf("%c or %c = %c\n", i, j, or->out);
 		}
 	}
@@ -91,15 +87,14 @@ void testOr() {
 
 void testXor() {
 	Bit i, j;
-	XorGate* xor = (XorGate*)malloc(sizeof(XorGate));
-	initXor(xor);
+	Xor* xor = newXor();
 	
 	puts("Testing xor");
 	
 	for (i = '0'; i < '2'; i++) {
 		for (j = '0'; j < '2'; j++) {
 			xor->in[0] = i; xor->in[1] = j;
-			Xor(xor);
+			doXor(xor);
 			printf("%c xor %c = %c\n", i, j, xor->out);
 		}
 	}
@@ -111,7 +106,7 @@ void testXor() {
 
 void testHalfAdd() {
 	Bit i, j;
-	HalfAddComp* halfAdd = (HalfAddComp*)malloc(sizeof(HalfAddComp));
+	HalfAdd* halfAdd = (HalfAdd*)malloc(sizeof(HalfAdd));
 	initHalfAdd(halfAdd);
 	
 	puts("Testing half add");
@@ -119,7 +114,7 @@ void testHalfAdd() {
 	for (i = '0'; i < '2'; i++) {
 		for (j = '0'; j < '2'; j++) {
 			halfAdd->in[0] = i; halfAdd->in[1] = j;
-			HalfAdd(halfAdd);
+			doHalfAdd(halfAdd);
 			printf("%c + %c = %s\n", i, j, halfAdd->out);
 		}
 	}
@@ -131,7 +126,7 @@ void testHalfAdd() {
 
 void testFullAdd() {
 	Bit i, j, k;
-	FullAddComp* fullAdd = (FullAddComp*)malloc(sizeof(FullAddComp));
+	FullAdd* fullAdd = (FullAdd*)malloc(sizeof(FullAdd));
 	initFullAdd(fullAdd);
 	
 	puts("Testing full add");
@@ -140,7 +135,7 @@ void testFullAdd() {
 		for (j = '0'; j < '2'; j++) {
 			for (k = '0'; k < '2'; k++) {
 				fullAdd->in[0] = i; fullAdd->in[1] = j; fullAdd->in[2] = k;
-				FullAdd(fullAdd);
+				doFullAdd(fullAdd);
 				printf("%c + %c + %c = %c%c\n", i, j, k, fullAdd->out[0], fullAdd->out[1]);
 			}
 		}
@@ -523,26 +518,26 @@ void testMemory() {
 }
 
 void test() {
-	//~ testNand();
-	//~ testNot();
-	//~ testAnd();
-	//~ testOr();
-	//~ testXor();
-	//~ testHalfAdd();
-	//~ testFullAdd();
-	//~ testAdd();
-	//~ testIncrement();
-	//~ testSubtract();
-	//~ testEqualsZero();
-	//~ testLessThanZero();
-	//~ testMux();
-	//~ testMux8();
-	//~ testDMux();
-	//~ testLatch();
-	//~ testDFF();
-	//~ testRegister();
-	//~ testCounter();
-	//~ testRAM();
-	//~ testUnary();
-	testMemory();
+	testNand();
+	testNot();
+	testAnd();
+	testOr();
+	testXor();
+	testHalfAdd();
+	// testFullAdd();
+	// testAdd();
+	// testIncrement();
+	// testSubtract();
+	// testEqualsZero();
+	// testLessThanZero();
+	// testMux();
+	// testMux8();
+	// testDMux();
+	// testLatch();
+	// testDFF();
+	// testRegister();
+	// testCounter();
+	// testRAM();
+	// testUnary();
+	// testMemory();
 }

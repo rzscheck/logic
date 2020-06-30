@@ -28,7 +28,7 @@ void Unary(UnaryComp* unary) {
 	unary->mux8[1].store = unary->negate;
 	for (i = 0; i < 8; i++) {
 		unary->not[i].in = unary->mux8[0].out[i];
-		Not(&unary->not[i]);
+		doNot(&unary->not[i]);
 		unary->mux8[1].data[0][i] = unary->not[i].out;
 		unary->mux8[1].data[1][i] = unary->mux8[0].out[i];
 	}

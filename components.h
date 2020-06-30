@@ -4,8 +4,8 @@
 typedef struct MuxComp {
 	Bit store;
 	Bit data[2];
-	NandGate nand[3];
-	NotGate not;
+	Nand nand[3];
+	Not not;
 	Bit out;
 } MuxComp;
 
@@ -18,8 +18,8 @@ typedef struct Mux8Comp {
 
 typedef struct DMuxComp {
 	Bit store, data;
-	AndGate and[2];
-	NotGate not;
+	And and[2];
+	Not not;
 	Bit out[2];
 } DMuxComp;
 
@@ -31,8 +31,8 @@ typedef struct LatchComp {
 
 typedef struct DFFComp {
 	Bit store, data, clock;
-	NandGate nand[2];
-	NotGate not[2];
+	Nand nand[2];
+	Not not[2];
 	LatchComp latch[2];
 	Bit out;
 } DFFComp;
@@ -48,7 +48,7 @@ typedef struct CounterComp {
 	Bit store, clock;
 	Bit data[8];
 	Mux8Comp mux8;
-	NotGate not;
+	Not not;
 	IncrementComp increment;
 	RegisterComp reg;
 	Bit out[8];

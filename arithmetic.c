@@ -3,70 +3,82 @@
 #include "gates.h"
 #include "arithmetic.h"
 
-void initHalfAdd(HalfAddComp* halfAdd) {
+void initHalfAdd(HalfAdd* halfAdd) {
 	int i;
 	for (i = 0; i < 2; i++) halfAdd->in[i] = '0';
 	for (i = 0; i < 4; i++) initNand(&halfAdd->nand[i]);
 	initNot(&halfAdd->not);
-	HalfAdd(halfAdd);
+	doHalfAdd(halfAdd);
 }
 
-void HalfAdd(HalfAddComp* halfAdd) {
+void doHalfAdd(HalfAdd* halfAdd) {
 	halfAdd->nand[0].in[0] = halfAdd->in[0];
 	halfAdd->nand[0].in[1] = halfAdd->in[1];
-	Nand(&halfAdd->nand[0]);
+	doNand(&halfAdd->nand[0]);
 	halfAdd->nand[1].in[0] = halfAdd->in[0];
 	halfAdd->nand[1].in[1] = halfAdd->nand[0].out;
-	Nand(&halfAdd->nand[1]);
+	doNand(&halfAdd->nand[1]);
 	halfAdd->nand[2].in[0] = halfAdd->in[1];
 	halfAdd->nand[2].in[1] = halfAdd->nand[0].out;
-	Nand(&halfAdd->nand[2]);
+	doNand(&halfAdd->nand[2]);
 	halfAdd->nand[3].in[0] = halfAdd->nand[1].out;
 	halfAdd->nand[3].in[1] = halfAdd->nand[2].out;
-	Nand(&halfAdd->nand[3]);
+	doNand(&halfAdd->nand[3]);
 	halfAdd->not.in = halfAdd->nand[0].out;
-	Not(&halfAdd->not);
+	doNot(&halfAdd->not);
 	halfAdd->out[0] = halfAdd->not.out;
 	halfAdd->out[1] = halfAdd->nand[3].out;
 }
 
-void initFullAdd(FullAddComp* fullAdd) {
+HalfAdd* newHalfAdd() {
+	HalfAdd* halfAdd = (HalfAdd*)malloc(sizeof(HalfAdd));
+	initHalfAdd(halfAdd);
+	return halfAdd;
+}
+
+void initFullAdd(FullAdd* fullAdd) {
 	int i;
 	for (i = 0; i < 3; i++) fullAdd->in[i] = '0';
 	for (i = 0; i < 8; i++) initNand(&fullAdd->nand[i]);
-	FullAdd(fullAdd);
+	doFullAdd(fullAdd);
 }
 
-void FullAdd(FullAddComp* fullAdd) {
+void doFullAdd(FullAdd* fullAdd) {
 	fullAdd->nand[0].in[0] = fullAdd->in[0];
 	fullAdd->nand[0].in[1] = fullAdd->in[1];
-	Nand(&fullAdd->nand[0]);
+	doNand(&fullAdd->nand[0]);
 	fullAdd->nand[1].in[0] = fullAdd->in[0];
 	fullAdd->nand[1].in[1] = fullAdd->nand[0].out;
-	Nand(&fullAdd->nand[1]);
+	doNand(&fullAdd->nand[1]);
 	fullAdd->nand[2].in[0] = fullAdd->in[1];
 	fullAdd->nand[2].in[1] = fullAdd->nand[0].out;
-	Nand(&fullAdd->nand[2]);
+	doNand(&fullAdd->nand[2]);
 	fullAdd->nand[3].in[0] = fullAdd->nand[1].out;
 	fullAdd->nand[3].in[1] = fullAdd->nand[2].out;
-	Nand(&fullAdd->nand[3]);
+	doNand(&fullAdd->nand[3]);
 	fullAdd->nand[4].in[0] = fullAdd->in[2];
 	fullAdd->nand[4].in[1] = fullAdd->nand[3].out;
-	Nand(&fullAdd->nand[4]);
+	doNand(&fullAdd->nand[4]);
 	fullAdd->nand[5].in[0] = fullAdd->nand[3].out;
 	fullAdd->nand[5].in[1] = fullAdd->nand[4].out;
-	Nand(&fullAdd->nand[5]);
+	doNand(&fullAdd->nand[5]);
 	fullAdd->nand[6].in[0] = fullAdd->in[2];
 	fullAdd->nand[6].in[1] = fullAdd->nand[4].out;
-	Nand(&fullAdd->nand[6]);
+	doNand(&fullAdd->nand[6]);
 	fullAdd->nand[7].in[0] = fullAdd->nand[5].out;
 	fullAdd->nand[7].in[1] = fullAdd->nand[6].out;
-	Nand(&fullAdd->nand[7]);
+	doNand(&fullAdd->nand[7]);
 	fullAdd->nand[8].in[0] = fullAdd->nand[0].out;
 	fullAdd->nand[8].in[1] = fullAdd->nand[4].out;
-	Nand(&fullAdd->nand[8]);
+	doNand(&fullAdd->nand[8]);
 	fullAdd->out[0] = fullAdd->nand[8].out;
 	fullAdd->out[1] = fullAdd->nand[7].out;
+}
+
+FullAdd* newFullAdd() {
+	FullAdd* fullAdd = (FullAdd*)malloc(sizeof(FullAdd));
+	initFullAdd(fullAdd);
+	return fullAdd;
 }
 
 void initAdd(AddComp* add) {
@@ -87,7 +99,7 @@ void Add(AddComp* add) {
 	for (i = 0; i < 8; i++) {
 		add->fullAdd[i].in[0] = add->in[0][7-i];
 		add->fullAdd[i].in[1] = add->in[1][7-i];
-		FullAdd(&add->fullAdd[i]);
+		doFullAdd(&add->fullAdd[i]);
 		add->out[7-i] = add->fullAdd[i].out[1];
 		if (i < 7) add->fullAdd[i + 1].in[2] = add->fullAdd[i].out[0];
 	}
@@ -109,7 +121,7 @@ void Increment(IncrementComp* increment) {
 		increment->add.in[1][i] = '0';
 	}
 	//~ increment->not.in = '0'; // Shouldn't need this if it's initialized
-	Not(&increment->not);
+	doNot(&increment->not);
 	increment->add.carryIn = increment->not.out;
 	Add(&increment->add);
 	for (i = 0; i < 8; i++) {
@@ -133,12 +145,12 @@ void Subtract(SubtractComp* subtract) {
 	int i;
 	for (i = 0; i < 8; i++) {
 		subtract->not[i].in = subtract->in[1][i];
-		Not(&subtract->not[i]);
+		doNot(&subtract->not[i]);
 		subtract->add.in[0][i] = subtract->in[0][i];
 		subtract->add.in[1][i] = subtract->not[i].out;
 	}
 	//~ subtract->not[8].in = '0'; // not needed if initialized
-	Not(&subtract->not[8]);
+	doNot(&subtract->not[8]);
 	subtract->add.carryIn = subtract->not[8].out;
 	Add(&subtract->add);
 	for (i = 0; i < 8; i++) {
@@ -157,27 +169,27 @@ void initEqualsZero(EqualsZeroComp* equalsZero) {
 void EqualsZero(EqualsZeroComp* equalsZero) {
 	equalsZero->or[0].in[0] = equalsZero->in[0];
 	equalsZero->or[0].in[1] = equalsZero->in[1];
-	Or(&equalsZero->or[0]);
+	doOr(&equalsZero->or[0]);
 	equalsZero->or[1].in[0] = equalsZero->in[2];
 	equalsZero->or[1].in[1] = equalsZero->or[0].out;
-	Or(&equalsZero->or[1]);
+	doOr(&equalsZero->or[1]);
 	equalsZero->or[2].in[0] = equalsZero->in[3];
 	equalsZero->or[2].in[1] = equalsZero->or[1].out;
-	Or(&equalsZero->or[2]);
+	doOr(&equalsZero->or[2]);
 	equalsZero->or[3].in[0] = equalsZero->in[4];
 	equalsZero->or[3].in[1] = equalsZero->or[2].out;
-	Or(&equalsZero->or[3]);
+	doOr(&equalsZero->or[3]);
 	equalsZero->or[4].in[0] = equalsZero->in[5];
 	equalsZero->or[4].in[1] = equalsZero->or[3].out;
-	Or(&equalsZero->or[4]);
+	doOr(&equalsZero->or[4]);
 	equalsZero->or[5].in[0] = equalsZero->in[6];
 	equalsZero->or[5].in[1] = equalsZero->or[4].out;
-	Or(&equalsZero->or[5]);
+	doOr(&equalsZero->or[5]);
 	equalsZero->or[6].in[0] = equalsZero->in[7];
 	equalsZero->or[6].in[1] = equalsZero->or[5].out;
-	Or(&equalsZero->or[6]);
+	doOr(&equalsZero->or[6]);
 	equalsZero->not.in = equalsZero->or[6].out;
-	Not(&equalsZero->not);
+	doNot(&equalsZero->not);
 	equalsZero->out = equalsZero->not.out;
 }
 

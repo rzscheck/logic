@@ -1,23 +1,23 @@
 #ifndef logic_arithmetic_h
 #define logic_arithmetic_h
 
-typedef struct HalfAddComp {
+typedef struct HalfAdd {
 	Bit in[2];
-	NandGate nand[4];
-	NotGate not;
+	Nand nand[4];
+	Not not;
 	Bit out[2];
-} HalfAddComp;
+} HalfAdd;
 
-typedef struct FullAddComp {
+typedef struct FullAdd {
 	Bit in[3];
-	NandGate nand[8];
+	Nand nand[8];
 	Bit out[2];
-} FullAddComp;
+} FullAdd;
 
 typedef struct AddComp {
 	Bit in[2][8];
 	Bit carryIn;
-	FullAddComp fullAdd[8];
+	FullAdd fullAdd[8];
 	Bit out[8];
 	Bit carryOut;
 } AddComp;
@@ -25,21 +25,21 @@ typedef struct AddComp {
 typedef struct IncrementComp {
 	Bit in[8];
 	AddComp add;
-	NotGate not;
+	Not not;
 	Bit out[8];
 } IncrementComp;
 
 typedef struct SubtractComp {
 	Bit in[2][8];
-	NotGate not[9];
+	Not not[9];
 	AddComp add;
 	Bit out[8];
 } SubtractComp;
 
 typedef struct EqualsZeroComp {
 	Bit in[8];
-	OrGate or[7];
-	NotGate not;
+	Or or[7];
+	Not not;
 	Bit out;
 } EqualsZeroComp;
 
@@ -48,11 +48,13 @@ typedef struct LessThanZeroComp {
 	Bit out;
 } LessThanZeroComp;
 
-void initHalfAdd(HalfAddComp* halfAdd);
-void HalfAdd(HalfAddComp* halfAdd);
+void initHalfAdd(HalfAdd* halfAdd);
+void doHalfAdd(HalfAdd* halfAdd);
+HalfAdd* newHalfAdd();
 
-void initFullAdd(FullAddComp* fullAdd);
-void FullAdd(FullAddComp* fullAdd);
+void initFullAdd(FullAdd* fullAdd);
+void doFullAdd(FullAdd* fullAdd);
+FullAdd* newFullAdd();
 
 void initAdd(AddComp* add);
 void Add(AddComp* add);

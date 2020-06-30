@@ -294,7 +294,7 @@ void testMux8() {
 	printf("\noutput: ");
 	for (i = 0; i < 8; i++) printf("%c", mux8->out[i]);
 	printf("\n");
-	//~ initMux(mux);
+	// initMux(mux);
 	for (i = 0; i < 8; i++) printf("%c\n", mux8->out[i]);
 	puts("Testing 8-bit mux");
 	
@@ -417,7 +417,7 @@ void testRAM() {
 	RAM(ram);
 	puts("Testing RAM");
 	
-	//~ ram->address = '1';
+	// ram->address = '1';
 	ram->store = '1';
 	RAM(ram);
 	ram->clock = '1';
@@ -498,7 +498,7 @@ void testMemory() {
 	Memory(mem);
 	mem->clock = '1';
 	Memory(mem);
-	//~ mem->store[0] = '1';
+	// mem->store[0] = '1';
 	mem->store[3] = '0';
 	for (i = 0; i < 8; i++) mem->data[i] = '0';
 	Memory(mem);
@@ -524,7 +524,7 @@ void test() {
 	testOr();
 	testXor();
 	testHalfAdd();
-	// testFullAdd();
+	testFullAdd();
 	// testAdd();
 	// testIncrement();
 	// testSubtract();

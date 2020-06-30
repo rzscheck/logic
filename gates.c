@@ -6,6 +6,10 @@
 // There's an initialization function for each gate/circuit that sets its inputs to zero and does the same to any subcomponents it might have
 // The logic gates are all pretty self-explanatory
 
+//
+// Nand
+//
+
 void initNand(Nand* nand) {
 	for (int i = 0; i < 2; i++) nand->in[i] = '0';
 	doNand(nand);
@@ -21,6 +25,10 @@ Nand* newNand() {
 	initNand(nand);
 	return nand;
 }
+
+//
+// Not
+//
 
 void initNot(Not* not) {
 	not->in = '0';
@@ -40,6 +48,10 @@ Not* newNot() {
 	initNot(not);
 	return not;
 }
+
+//
+// And
+//
 
 void initAnd(And* and) {
 	for (int i = 0; i < 2; i++) and->in[i] = '0';
@@ -62,6 +74,10 @@ And* newAnd() {
 	initAnd(and);
 	return and;
 }
+
+//
+// Or
+//
 
 void initOr(Or* or) {
 	for (int i = 0; i < 2; i++) {
@@ -88,6 +104,10 @@ Or* newOr() {
 	initOr(or);
 	return or;
 }
+
+//
+// Xor
+//
 
 void initXor(Xor* xor) {
 	for (int i = 0; i < 2; i++) xor->in[i] = '0';

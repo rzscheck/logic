@@ -2,6 +2,10 @@
 #include "arithmetic.h"
 #include "components.h"
 
+//
+// Mux
+//
+
 void initMux(MuxComp* mux) {
 	int i;
 	mux->store = '0';
@@ -26,6 +30,10 @@ void Mux(MuxComp* mux) {
 	mux->out = mux->nand[2].out;
 }
 
+//
+// Mux8
+//
+
 void initMux8(Mux8Comp* mux8) {
 	int i, j;
 	mux8->store = '0';
@@ -47,6 +55,10 @@ void Mux8(Mux8Comp* mux8) {
 		mux8->out[i] = mux8->mux[i].out;
 	}
 }
+
+//
+// DMux
+//
 
 void initDMux(DMuxComp* dmux) {
 	int i;
@@ -70,6 +82,10 @@ void DMux(DMuxComp* dmux) {
 	dmux->out[1] = dmux->and[1].out;
 }
 
+//
+// Latch
+//
+
 void initLatch(LatchComp* latch) {
 	latch->store = '0';
 	latch->data = '0';
@@ -84,6 +100,10 @@ void Latch(LatchComp* latch) {
 	Mux(&latch->mux);
 	latch->out = latch->mux.out;
 }
+
+//
+// DFF
+//
 
 void initDFF(DFFComp* dff) {
 	int i;
@@ -118,6 +138,10 @@ void DFF(DFFComp* dff) {
 	dff->out = dff->latch[1].out;
 }
 
+//
+// Register
+//
+
 void initRegister(RegisterComp* reg) {
 	int i;
 	reg->store = '0';
@@ -139,6 +163,10 @@ void Register(RegisterComp* reg) {
 		reg->out[i] = reg->dff[i].out;
 	}
 }
+
+//
+// Counter
+//
 
 void initCounter(CounterComp* counter) {
 	int i;

@@ -54,11 +54,12 @@ typedef struct CounterComp {
 	Bit out[8];
 } CounterComp;
 
-//~ typedef struct RAMComp {
-	//~ Bit store, clock;
-	//~ Bit address[8], data[8];
+// typedef struct RAMComp {
+	// Bit store, clock;
+	// Bit address[8], data[8];
 	
-	//~ RegisterComp reg[256];
+	// RegisterComp reg[256];
+// }
 
 void initMux(MuxComp* mux);
 void Mux(MuxComp* mux);

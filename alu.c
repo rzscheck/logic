@@ -3,7 +3,9 @@
 #include "components.h"
 #include "alu.h"
 
-void Unary(UnaryComp* unary);
+//
+// Unary
+//
 
 void initUnary(UnaryComp* unary) {
 	int i;

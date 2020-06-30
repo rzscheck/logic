@@ -4,6 +4,10 @@
 #include "ram.h"
 #include "memory.h"
 
+//
+// Memory
+//
+
 void initMemory(MemoryComp* mem) {
 	int i;
 	mem->clock = '0';

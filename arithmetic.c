@@ -1,7 +1,12 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "gates.h"
 #include "arithmetic.h"
+
+//
+// HalfAdd
+//
 
 void initHalfAdd(HalfAdd* halfAdd) {
 	int i;
@@ -35,6 +40,10 @@ HalfAdd* newHalfAdd() {
 	initHalfAdd(halfAdd);
 	return halfAdd;
 }
+
+//
+// Full add
+//
 
 void initFullAdd(FullAdd* fullAdd) {
 	int i;
@@ -81,6 +90,10 @@ FullAdd* newFullAdd() {
 	return fullAdd;
 }
 
+//
+// Add
+//
+
 void initAdd(AddComp* add) {
 	int i, j;
 	add->carryIn = '0';
@@ -106,6 +119,10 @@ void Add(AddComp* add) {
 	add->carryOut = add->fullAdd[7].out[0];
 }
 
+//
+// Increment
+//
+
 void initIncrement(IncrementComp* increment) {
 	int i;
 	for (i = 0; i < 8; i++) increment->in[i] = '0';
@@ -120,7 +137,7 @@ void Increment(IncrementComp* increment) {
 		increment->add.in[0][i] = increment->in[i];
 		increment->add.in[1][i] = '0';
 	}
-	//~ increment->not.in = '0'; // Shouldn't need this if it's initialized
+	// increment->not.in = '0'; // Shouldn't need this if it's initialized
 	doNot(&increment->not);
 	increment->add.carryIn = increment->not.out;
 	Add(&increment->add);
@@ -128,6 +145,10 @@ void Increment(IncrementComp* increment) {
 		increment->out[i] = increment->add.out[i];
 	}
 }
+
+//
+// Subtract
+//
 
 void initSubtract(SubtractComp* subtract) {
 	int i, j;
@@ -149,7 +170,7 @@ void Subtract(SubtractComp* subtract) {
 		subtract->add.in[0][i] = subtract->in[0][i];
 		subtract->add.in[1][i] = subtract->not[i].out;
 	}
-	//~ subtract->not[8].in = '0'; // not needed if initialized
+	// subtract->not[8].in = '0'; // not needed if initialized
 	doNot(&subtract->not[8]);
 	subtract->add.carryIn = subtract->not[8].out;
 	Add(&subtract->add);
@@ -157,6 +178,11 @@ void Subtract(SubtractComp* subtract) {
 		subtract->out[i] = subtract->add.out[i];
 	}
 }
+
+
+//
+// EqualsZero
+//
 
 void initEqualsZero(EqualsZeroComp* equalsZero) {
 	int i;
@@ -192,6 +218,10 @@ void EqualsZero(EqualsZeroComp* equalsZero) {
 	doNot(&equalsZero->not);
 	equalsZero->out = equalsZero->not.out;
 }
+
+//
+// LessThanZero
+//
 
 void initLessThanZero(LessThanZeroComp* lessThanZero) {
 	int i;

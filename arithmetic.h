@@ -14,39 +14,39 @@ typedef struct FullAdd {
 	Bit out[2];
 } FullAdd;
 
-typedef struct AddComp {
+typedef struct Add {
 	Bit in[2][8];
 	Bit carryIn;
 	FullAdd fullAdd[8];
 	Bit out[8];
 	Bit carryOut;
-} AddComp;
+} Add;
 
-typedef struct IncrementComp {
+typedef struct Increment {
 	Bit in[8];
-	AddComp add;
+	Add add;
 	Not not;
 	Bit out[8];
-} IncrementComp;
+} Increment;
 
-typedef struct SubtractComp {
+typedef struct Subtract {
 	Bit in[2][8];
 	Not not[9];
-	AddComp add;
+	Add add;
 	Bit out[8];
-} SubtractComp;
+} Subtract;
 
-typedef struct EqualsZeroComp {
+typedef struct EqualsZero {
 	Bit in[8];
 	Or or[7];
 	Not not;
 	Bit out;
-} EqualsZeroComp;
+} EqualsZero;
 
-typedef struct LessThanZeroComp {
+typedef struct LessThanZero {
 	Bit in[8];
 	Bit out;
-} LessThanZeroComp;
+} LessThanZero;
 
 void initHalfAdd(HalfAdd* halfAdd);
 void doHalfAdd(HalfAdd* halfAdd);
@@ -56,19 +56,24 @@ void initFullAdd(FullAdd* fullAdd);
 void doFullAdd(FullAdd* fullAdd);
 FullAdd* newFullAdd();
 
-void initAdd(AddComp* add);
-void Add(AddComp* add);
+void initAdd(Add* add);
+void doAdd(Add* add);
+Add* newAdd();
 
-void initIncrement(IncrementComp* increment);
-void Increment(IncrementComp* increment);
+void initIncrement(Increment* increment);
+void doIncrement(Increment* increment);
+Increment* newIncrement();
 
-void initSubtract(SubtractComp* subtract);
-void Subtract(SubtractComp* subtract);
+void initSubtract(Subtract* subtract);
+void doSubtract(Subtract* subtract);
+Subtract* newSubtract();
 
-void initEqualsZero(EqualsZeroComp* equalsZero);
-void EqualsZero(EqualsZeroComp* equalsZero);
+void initEqualsZero(EqualsZero* equalsZero);
+void doEqualsZero(EqualsZero* equalsZero);
+EqualsZero* newEqualsZero();
 
-void initLessThanZero(LessThanZeroComp* lessThanZero);
-void LessThanZero(LessThanZeroComp* lessThanZero);
+void initLessThanZero(LessThanZero* lessThanZero);
+void doLessThanZero(LessThanZero* lessThanZero);
+LessThanZero* newLessThanZero();
 
 #endif

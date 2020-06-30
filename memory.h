@@ -1,16 +1,17 @@
 #ifndef logic_memory_h
 #define logic_memory_h
 
-typedef struct MemoryComp {
+typedef struct Memory {
 	Bit store[4]; // address, data, ALU, RAM;
 	Bit clock;
 	Bit data[8];
 	RegisterComp reg[3]; // address, data, ALU;
-	RAM256Comp ram;
+	RAM256 ram;
 	Bit out[4][8]; // address, data, ALU, RAM;
-} MemoryComp;
+} Memory;
 
-void initMemory(MemoryComp* mem);
-void Memory(MemoryComp* mem);
+void initMemory(Memory* mem);
+void doMemory(Memory* mem);
+Memory* newMemory();
 
 #endif

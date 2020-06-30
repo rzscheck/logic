@@ -190,7 +190,7 @@ void Counter(CounterComp* counter) {
 		counter->mux8.data[0][i] = counter->data[i];
 		counter->increment.in[i] = counter->reg.out[i];
 	}
-	Increment(&counter->increment);
+	doIncrement(&counter->increment);
 	
 	for (i = 0; i < 8; i++) counter->mux8.data[1][i] = counter->increment.out[i];
 	Mux8(&counter->mux8);

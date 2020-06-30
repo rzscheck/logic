@@ -94,7 +94,7 @@ FullAdd* newFullAdd() {
 // Add
 //
 
-void initAdd(AddComp* add) {
+void initAdd(Add* add) {
 	int i, j;
 	add->carryIn = '0';
 	for (i = 0; i < 2; i++) {
@@ -103,10 +103,10 @@ void initAdd(AddComp* add) {
 		}
 	}
 	for (i = 0; i < 8; i++) initFullAdd(&add->fullAdd[i]);
-	Add(add);
+	doAdd(add);
 }
 
-void Add(AddComp* add) {
+void doAdd(Add* add) {
 	int i;
 	add->fullAdd[0].in[2] = add->carryIn;
 	for (i = 0; i < 8; i++) {
@@ -119,19 +119,25 @@ void Add(AddComp* add) {
 	add->carryOut = add->fullAdd[7].out[0];
 }
 
+Add* newAdd() {
+	Add* add = (Add*)malloc(sizeof(Add));
+	initAdd(add);
+	return add;
+}
+
 //
 // Increment
 //
 
-void initIncrement(IncrementComp* increment) {
+void initIncrement(Increment* increment) {
 	int i;
 	for (i = 0; i < 8; i++) increment->in[i] = '0';
 	initAdd(&increment->add);
 	initNot(&increment->not);
-	Increment(increment);
+	doIncrement(increment);
 }
 
-void Increment(IncrementComp* increment) {
+void doIncrement(Increment* increment) {
 	int i;
 	for (i = 0; i < 8; i++) {
 		increment->add.in[0][i] = increment->in[i];
@@ -140,17 +146,23 @@ void Increment(IncrementComp* increment) {
 	// increment->not.in = '0'; // Shouldn't need this if it's initialized
 	doNot(&increment->not);
 	increment->add.carryIn = increment->not.out;
-	Add(&increment->add);
+	doAdd(&increment->add);
 	for (i = 0; i < 8; i++) {
 		increment->out[i] = increment->add.out[i];
 	}
+}
+
+Increment* newIncrement() {
+	Increment* increment = (Increment*)malloc(sizeof(Increment));
+	initIncrement(increment);
+	return increment;
 }
 
 //
 // Subtract
 //
 
-void initSubtract(SubtractComp* subtract) {
+void initSubtract(Subtract* subtract) {
 	int i, j;
 	for (i = 0; i < 2; i++) {
 		for (j = 0; j < 8; j++) {
@@ -159,10 +171,10 @@ void initSubtract(SubtractComp* subtract) {
 	}
 	for (i = 0; i < 9; i++) initNot(&subtract->not[i]);
 	initAdd(&subtract->add);
-	Subtract(subtract);
+	doSubtract(subtract);
 }
 
-void Subtract(SubtractComp* subtract) {
+void doSubtract(Subtract* subtract) {
 	int i;
 	for (i = 0; i < 8; i++) {
 		subtract->not[i].in = subtract->in[1][i];
@@ -173,26 +185,31 @@ void Subtract(SubtractComp* subtract) {
 	// subtract->not[8].in = '0'; // not needed if initialized
 	doNot(&subtract->not[8]);
 	subtract->add.carryIn = subtract->not[8].out;
-	Add(&subtract->add);
+	doAdd(&subtract->add);
 	for (i = 0; i < 8; i++) {
 		subtract->out[i] = subtract->add.out[i];
 	}
 }
 
+Subtract* newSubtract() {
+	Subtract* subtract = (Subtract*)malloc(sizeof(Subtract));
+	initSubtract(subtract);
+	return subtract;
+}
 
 //
 // EqualsZero
 //
 
-void initEqualsZero(EqualsZeroComp* equalsZero) {
+void initEqualsZero(EqualsZero* equalsZero) {
 	int i;
 	for (i = 0; i < 8; i++) equalsZero->in[i] = '0';
 	for (i = 0; i < 7; i++) initOr(&equalsZero->or[i]);
 	initNot(&equalsZero->not);
-	EqualsZero(equalsZero);
+	doEqualsZero(equalsZero);
 }
 
-void EqualsZero(EqualsZeroComp* equalsZero) {
+void doEqualsZero(EqualsZero* equalsZero) {
 	equalsZero->or[0].in[0] = equalsZero->in[0];
 	equalsZero->or[0].in[1] = equalsZero->in[1];
 	doOr(&equalsZero->or[0]);
@@ -219,16 +236,28 @@ void EqualsZero(EqualsZeroComp* equalsZero) {
 	equalsZero->out = equalsZero->not.out;
 }
 
+EqualsZero* newEqualsZero() {
+	EqualsZero* equalsZero = (EqualsZero*)malloc(sizeof(EqualsZero));
+	initEqualsZero(equalsZero);
+	return equalsZero;
+}
+
 //
 // LessThanZero
 //
 
-void initLessThanZero(LessThanZeroComp* lessThanZero) {
+void initLessThanZero(LessThanZero* lessThanZero) {
 	int i;
 	for (i = 0; i < 8; i++) lessThanZero->in[i] = '0';
-	LessThanZero(lessThanZero);
+	doLessThanZero(lessThanZero);
 }
 
-void LessThanZero(LessThanZeroComp* lessThanZero) {
+void doLessThanZero(LessThanZero* lessThanZero) {
 	lessThanZero->out = lessThanZero->in[0];
+}
+
+LessThanZero* newLessThanZero() {
+	LessThanZero* lessThanZero = (LessThanZero*)malloc(sizeof(LessThanZero));
+	initLessThanZero(lessThanZero);
+	return lessThanZero;
 }

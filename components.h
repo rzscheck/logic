@@ -49,12 +49,12 @@ typedef struct CounterComp {
 	Bit data[8];
 	Mux8Comp mux8;
 	Not not;
-	IncrementComp increment;
+	Increment increment;
 	RegisterComp reg;
 	Bit out[8];
 } CounterComp;
 
-// typedef struct RAMComp {
+// typedef struct RAM {
 	// Bit store, clock;
 	// Bit address[8], data[8];
 	

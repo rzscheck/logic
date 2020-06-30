@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "gates.h"
 #include "arithmetic.h"
 #include "components.h"
@@ -7,7 +9,7 @@
 // Unary
 //
 
-void initUnary(UnaryComp* unary) {
+void initUnary(Unary* unary) {
 	int i;
 	unary->zero = '0';
 	unary->negate = '0';
@@ -16,10 +18,10 @@ void initUnary(UnaryComp* unary) {
 		initNot(&unary->not[i]);
 	}
 	for (i = 0; i < 2; i++) initMux8(&unary->mux8[i]);
-	Unary(unary);
+	doUnary(unary);
 }
 
-void Unary(UnaryComp* unary) {
+void doUnary(Unary* unary) {
 	int i;
 	unary->mux8[0].store = unary->zero;
 	for (i = 0; i < 8; i++) {
@@ -36,4 +38,10 @@ void Unary(UnaryComp* unary) {
 	}
 	Mux8(&unary->mux8[1]);
 	for (i = 0; i < 8; i++) unary->out[i] = unary->mux8[1].out[i];
+}
+
+Unary* newUnary() {
+	Unary* unary = (Unary*)malloc(sizeof(Unary));
+	initUnary(unary);
+	return unary;
 }

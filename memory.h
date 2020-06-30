@@ -5,7 +5,7 @@ typedef struct Memory {
 	Bit store[4]; // address, data, ALU, RAM;
 	Bit clock;
 	Bit data[8];
-	RegisterComp reg[3]; // address, data, ALU;
+	Register reg[3]; // address, data, ALU;
 	RAM256 ram;
 	Bit out[4][8]; // address, data, ALU, RAM;
 } Memory;

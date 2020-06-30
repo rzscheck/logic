@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "gates.h"
 #include "arithmetic.h"
 #include "components.h"
@@ -26,7 +28,7 @@ void doMemory(Memory* mem) {
 		mem->reg[i].store = mem->store[i];
 		mem->reg[i].clock = mem->clock;
 		for (j = 0; j < 8; j++) mem->reg[i].data[j] = mem->data[j];
-		Register(&mem->reg[i]);
+		doRegister(&mem->reg[i]);
 	}
 	
 	mem->ram.store = mem->store[3];

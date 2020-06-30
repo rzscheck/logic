@@ -5,7 +5,7 @@ typedef struct Unary {
 	Bit zero, negate;
 	Bit data[8];
 	Not not[8];
-	Mux8Comp mux8[2];
+	Mux8 mux8[2];
 	Bit out[8];
 } Unary;
 

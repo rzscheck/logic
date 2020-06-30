@@ -28,7 +28,7 @@ void doUnary(Unary* unary) {
 		unary->mux8[0].data[0][i] = '0';
 		unary->mux8[0].data[1][i] = unary->data[i];
 	}
-	Mux8(&unary->mux8[0]);
+	doMux8(&unary->mux8[0]);
 	unary->mux8[1].store = unary->negate;
 	for (i = 0; i < 8; i++) {
 		unary->not[i].in = unary->mux8[0].out[i];
@@ -36,7 +36,7 @@ void doUnary(Unary* unary) {
 		unary->mux8[1].data[0][i] = unary->not[i].out;
 		unary->mux8[1].data[1][i] = unary->mux8[0].out[i];
 	}
-	Mux8(&unary->mux8[1]);
+	doMux8(&unary->mux8[1]);
 	for (i = 0; i < 8; i++) unary->out[i] = unary->mux8[1].out[i];
 }
 

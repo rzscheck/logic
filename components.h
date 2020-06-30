@@ -1,85 +1,92 @@
 #ifndef logic_components_h
 #define logic_components_h
 
-typedef struct MuxComp {
+typedef struct Mux {
 	Bit store;
 	Bit data[2];
 	Nand nand[3];
 	Not not;
 	Bit out;
-} MuxComp;
+} Mux;
 
-typedef struct Mux8Comp {
+typedef struct Mux8 {
 	Bit store;
 	Bit data[2][8];
-	MuxComp mux[8];
+	Mux mux[8];
 	Bit out[8];
-} Mux8Comp;
+} Mux8;
 
-typedef struct DMuxComp {
+typedef struct DMux {
 	Bit store, data;
 	And and[2];
 	Not not;
 	Bit out[2];
-} DMuxComp;
+} DMux;
 
-typedef struct LatchComp {
+typedef struct Latch {
 	Bit store, data;
-	MuxComp mux;
+	Mux mux;
 	Bit out;
-} LatchComp;
+} Latch;
 
-typedef struct DFFComp {
+typedef struct DFF {
 	Bit store, data, clock;
 	Nand nand[2];
 	Not not[2];
-	LatchComp latch[2];
+	Latch latch[2];
 	Bit out;
-} DFFComp;
+} DFF;
 
-typedef struct RegisterComp {
+typedef struct Register {
 	Bit store, clock;
 	Bit data[8];
-	DFFComp dff[8];
+	DFF dff[8];
 	Bit out[8];
-} RegisterComp;
+} Register;
 
-typedef struct CounterComp {
+typedef struct Counter {
 	Bit store, clock;
 	Bit data[8];
-	Mux8Comp mux8;
+	Mux8 mux8;
 	Not not;
 	Increment increment;
-	RegisterComp reg;
+	Register reg;
 	Bit out[8];
-} CounterComp;
+} Counter;
 
 // typedef struct RAM {
 	// Bit store, clock;
 	// Bit address[8], data[8];
 	
-	// RegisterComp reg[256];
+	// Register reg[256];
 // }
 
-void initMux(MuxComp* mux);
-void Mux(MuxComp* mux);
+void initMux(Mux* mux);
+void doMux(Mux* mux);
+Mux* newMux();
 
-void initMux8(Mux8Comp* mux8);
-void Mux8(Mux8Comp* mux8);
+void initMux8(Mux8* mux8);
+void doMux8(Mux8* mux8);
+Mux8* newMux8();
 
-void initDMux(DMuxComp* dmux);
-void DMux(DMuxComp* dmux);
+void initDMux(DMux* dmux);
+void doDMux(DMux* dmux);
+DMux* newDMux();
 
-void initLatch(LatchComp* latch);
-void Latch(LatchComp* latch);
+void initLatch(Latch* latch);
+void doLatch(Latch* latch);
+Latch* newLatch();
 
-void initDFF(DFFComp* dff);
-void DFF(DFFComp* dff);
+void initDFF(DFF* dff);
+void doDFF(DFF* dff);
+DFF* newDFF();
 
-void initRegister(RegisterComp* reg);
-void Register(RegisterComp* reg);
+void initRegister(Register* reg);
+void doRegister(Register* reg);
+Register* newRegister();
 
-void initCounter(CounterComp* counter);
-void Counter(CounterComp* counter);
+void initCounter(Counter* counter);
+void doCounter(Counter* counter);
+Counter* newCounter();
 
 #endif

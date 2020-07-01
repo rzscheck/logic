@@ -48,32 +48,32 @@ typedef struct LessThanZero {
 	Bit out;
 } LessThanZero;
 
+HalfAdd* newHalfAdd();
 void initHalfAdd(HalfAdd* halfAdd);
 void doHalfAdd(HalfAdd* halfAdd);
-HalfAdd* newHalfAdd();
 
+FullAdd* newFullAdd();
 void initFullAdd(FullAdd* fullAdd);
 void doFullAdd(FullAdd* fullAdd);
-FullAdd* newFullAdd();
 
+Add* newAdd();
 void initAdd(Add* add);
 void doAdd(Add* add);
-Add* newAdd();
 
+Increment* newIncrement();
 void initIncrement(Increment* increment);
 void doIncrement(Increment* increment);
-Increment* newIncrement();
 
+Subtract* newSubtract();
 void initSubtract(Subtract* subtract);
 void doSubtract(Subtract* subtract);
-Subtract* newSubtract();
 
+EqualsZero* newEqualsZero();
 void initEqualsZero(EqualsZero* equalsZero);
 void doEqualsZero(EqualsZero* equalsZero);
-EqualsZero* newEqualsZero();
 
+LessThanZero* newLessThanZero();
 void initLessThanZero(LessThanZero* lessThanZero);
 void doLessThanZero(LessThanZero* lessThanZero);
-LessThanZero* newLessThanZero();
 
 #endif

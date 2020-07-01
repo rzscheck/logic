@@ -255,7 +255,7 @@ void testLessThanZero() {
 
 void testMux() {
 	Bit i, j, k;
-	MuxComp* mux = (MuxComp*)malloc(sizeof(MuxComp));
+	Mux* mux = (Mux*)malloc(sizeof(Mux));
 	initMux(mux);
 	
 	puts("Testing mux");
@@ -264,7 +264,7 @@ void testMux() {
 		for (j = '0'; j < '2'; j++) {
 			for (k = '0'; k < '2'; k++) {
 				mux->store = i; mux->data[0] = j; mux->data[1] = k;
-				Mux(mux);
+				doMux(mux);
 				printf("%c %c %c = %c\n", i, j, k, mux->out);
 			}
 		}
@@ -277,7 +277,7 @@ void testMux() {
 
 void testMux8() {
 	int i;
-	Mux8Comp* mux8 = (Mux8Comp*)malloc(sizeof(Mux8Comp));
+	Mux8* mux8 = (Mux8*)malloc(sizeof(Mux8));
 	initMux8(mux8);
 	
 	printf("Testing 8-bit mux\n");
@@ -299,18 +299,18 @@ void testMux8() {
 	puts("Testing 8-bit mux");
 	
 	mux8->data[0][7] = '1';
-	Mux8(mux8);
+	doMux8(mux8);
 	for (i = 0; i < 8; i++) printf("%c", mux8->out[i]);
 	puts("");
 	mux8->store = '1';
-	Mux8(mux8);
+	doMux8(mux8);
 	for (i = 0; i < 8; i++) printf("%c", mux8->out[i]);
 	puts("");
 }
 
 void testDMux() {
 	Bit i, j;
-	DMuxComp* dmux = (DMuxComp*)malloc(sizeof(DMuxComp));
+	DMux* dmux = (DMux*)malloc(sizeof(DMux));
 	initDMux(dmux);
 	
 	puts("Testing dmux");
@@ -318,7 +318,7 @@ void testDMux() {
 	for (i = '0'; i < '2'; i++) {
 		for (j = '0'; j < '2'; j++) {
 			dmux->store = i; dmux->data = j;
-			DMux(dmux);
+			doDMux(dmux);
 			printf("%c %c = %c%c\n", i, j, dmux->out[0], dmux->out[1]);
 		}
 	}
@@ -330,7 +330,7 @@ void testDMux() {
 
 void testLatch() {
 	Bit i, j;
-	LatchComp* latch = (LatchComp*)malloc(sizeof(LatchComp));
+	Latch* latch = (Latch*)malloc(sizeof(Latch));
 	initLatch(latch);
 	
 	puts("Testing latch");
@@ -338,7 +338,7 @@ void testLatch() {
 	for (i = '1'; i > '0' - 1; --i) {
 		for (j = '0'; j < '2'; j++) {
 			latch->store = i; latch->data = j;
-			Latch(latch);
+			doLatch(latch);
 			printf("%c %c = %c\n", i, j, latch->out);
 		}
 	}
@@ -350,7 +350,7 @@ void testLatch() {
 
 void testDFF() {
 	Bit i, j, k;
-	DFFComp* dff = (DFFComp*)malloc(sizeof(DFFComp));
+	DFF* dff = (DFF*)malloc(sizeof(DFF));
 	initDFF(dff);
 	
 	puts("Testing flip flop");
@@ -359,7 +359,7 @@ void testDFF() {
 		for (j = '0'; j < '2'; j++) {
 			for (k = '0'; k < '2'; k++) {
 				dff->store = i; dff->data = j; dff->clock = k;
-				DFF(dff);
+				doDFF(dff);
 				printf("%c %c %c = %c\n", i, j, k, dff->out);
 			}
 		}
@@ -372,7 +372,7 @@ void testDFF() {
 
 void testRegister() {
 	int i;
-	RegisterComp* reg = (RegisterComp*)malloc(sizeof(RegisterComp));
+	Register* reg = (Register*)malloc(sizeof(Register));
 	initRegister(reg);
 	puts("Testing register");
 	reg->store = '1';
@@ -380,9 +380,9 @@ void testRegister() {
 		reg->data[i] = (i % 2)+'0';
 		printf("%c", reg->out[i]);
 	}
-	Register(reg);
+	doRegister(reg);
 	reg->clock = '1';
-	Register(reg);
+	doRegister(reg);
 	puts("");
 	for (i = 0; i < 8; i++) printf("%c", reg->out[i]);
 	puts("");
@@ -390,20 +390,17 @@ void testRegister() {
 
 void testCounter() {
 	int i, j;
-	CounterComp* counter = (CounterComp*)malloc(sizeof(CounterComp));
+	Counter* counter = (Counter*)malloc(sizeof(Counter));
 	initCounter(counter);
 	
 	puts("Testing counter");
-	i = 0;
-	for (;;) {
+	for (i=0;i < 256 * 2;i++) {
 		if (counter->clock == '1') {
 			for (j = 0; j < 8; j++) printf("%c", counter->out[j]);
 			puts("");
 		}
 		counter->clock = (i % 2) + '0';
-		Counter(counter);
-		sleep(1);
-		i++;
+		doCounter(counter);
 	}
 	free(counter);
 }
@@ -530,14 +527,14 @@ void test() {
 	testSubtract();
 	testEqualsZero();
 	testLessThanZero();
-	// testMux();
-	// testMux8();
-	// testDMux();
-	// testLatch();
-	// testDFF();
-	// testRegister();
-	// testCounter();
-	// testRAM();
-	// testUnary();
-	// testMemory();
+	testMux();
+	testMux8();
+	testDMux();
+	testLatch();
+	testDFF();
+	testRegister();
+	testCounter();
+	testRAM();
+	testUnary();
+	testMemory();
 }

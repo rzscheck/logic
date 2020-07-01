@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "gates.h"
 #include "arithmetic.h"
 #include "components.h"
@@ -7,6 +9,12 @@
 //
 // Memory
 //
+
+Memory* newMemory() {
+	Memory* memory = (Memory*)malloc(sizeof(Memory));
+	initMemory(memory);
+	return memory;
+}
 
 void initMemory(Memory* mem) {
 	int i;
@@ -26,7 +34,7 @@ void doMemory(Memory* mem) {
 		mem->reg[i].store = mem->store[i];
 		mem->reg[i].clock = mem->clock;
 		for (j = 0; j < 8; j++) mem->reg[i].data[j] = mem->data[j];
-		Register(&mem->reg[i]);
+		doRegister(&mem->reg[i]);
 	}
 	
 	mem->ram.store = mem->store[3];
@@ -40,10 +48,4 @@ void doMemory(Memory* mem) {
 		for (j = 0; j < 8; j++) mem->out[i][j] = mem->reg[i].out[j];
 	}
 	for (i = 0; i < 8; i++) mem->out[3][i] = mem->ram.out[i];
-}
-
-Memory* newMemory() {
-	Memory* memory = (Memory*)malloc(sizeof(Memory));
-	initMemory(memory);
-	return memory;
 }

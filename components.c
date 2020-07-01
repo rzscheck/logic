@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "gates.h"
 #include "arithmetic.h"
 #include "components.h"
@@ -6,16 +8,22 @@
 // Mux
 //
 
-void initMux(MuxComp* mux) {
+Mux* newMux() {
+	Mux* mux = (Mux*)malloc(sizeof(Mux));
+	initMux(mux);
+	return mux;
+}
+
+void initMux(Mux* mux) {
 	int i;
 	mux->store = '0';
 	for (i = 0; i < 2; i++) mux->data[i] = '0';
 	initNot(&mux->not);
 	for (i = 0; i < 3; i++) initNand(&mux->nand[i]);
-	Mux(mux);
+	doMux(mux);
 }
 
-void Mux(MuxComp* mux) {
+void doMux(Mux* mux) {
 	mux->nand[0].in[0] = mux->store;
 	mux->nand[0].in[1] = mux->data[0];
 	doNand(&mux->nand[0]);
@@ -34,7 +42,13 @@ void Mux(MuxComp* mux) {
 // Mux8
 //
 
-void initMux8(Mux8Comp* mux8) {
+Mux8* newMux8() {
+	Mux8* mux8 = (Mux8*)malloc(sizeof(Mux8));
+	initMux8(mux8);
+	return mux8;
+}
+
+void initMux8(Mux8* mux8) {
 	int i, j;
 	mux8->store = '0';
 	for (i = 0; i < 2; i++) {
@@ -43,15 +57,15 @@ void initMux8(Mux8Comp* mux8) {
 		}
 	}
 	for (i = 0; i < 8; i++) initMux(&mux8->mux[i]);
-	Mux8(mux8);
+	doMux8(mux8);
 }
 
-void Mux8(Mux8Comp* mux8) {
+void doMux8(Mux8* mux8) {
 	int i, j;
 	for (i = 0; i < 8; i++) {
 		mux8->mux[i].store = mux8->store;
 		for (j = 0; j < 2; j++) mux8->mux[i].data[j] = mux8->data[j][i];
-		Mux(&mux8->mux[i]);
+		doMux(&mux8->mux[i]);
 		mux8->out[i] = mux8->mux[i].out;
 	}
 }
@@ -60,16 +74,22 @@ void Mux8(Mux8Comp* mux8) {
 // DMux
 //
 
-void initDMux(DMuxComp* dmux) {
+DMux* newDMux() {
+	DMux* dmux = (DMux*)malloc(sizeof(DMux));
+	initDMux(dmux);
+	return dmux;
+}
+
+void initDMux(DMux* dmux) {
 	int i;
 	dmux->store = '0';
 	dmux->data = '0';
 	for (i = 0; i < 2; i++) initAnd(&dmux->and[i]);
 	initNot(&dmux->not);
-	DMux(dmux);
+	doDMux(dmux);
 }
 
-void DMux(DMuxComp* dmux) {
+void doDMux(DMux* dmux) {
 	dmux->and[0].in[0] = dmux->store;
 	dmux->and[0].in[1] = dmux->data;
 	doAnd(&dmux->and[0]);
@@ -86,18 +106,24 @@ void DMux(DMuxComp* dmux) {
 // Latch
 //
 
-void initLatch(LatchComp* latch) {
+Latch* newLatch() {
+	Latch* latch = (Latch*)malloc(sizeof(Latch));
+	initLatch(latch);
+	return latch;
+}
+
+void initLatch(Latch* latch) {
 	latch->store = '0';
 	latch->data = '0';
 	initMux(&latch->mux);
-	Latch(latch);
+	doLatch(latch);
 }
 
-void Latch(LatchComp* latch) {
+void doLatch(Latch* latch) {
 	latch->mux.store = latch->store;
 	latch->mux.data[0] = latch->data;
 	latch->mux.data[1] = latch->mux.out;
-	Mux(&latch->mux);
+	doMux(&latch->mux);
 	latch->out = latch->mux.out;
 }
 
@@ -105,7 +131,13 @@ void Latch(LatchComp* latch) {
 // DFF
 //
 
-void initDFF(DFFComp* dff) {
+DFF* newDFF() {
+	DFF* dff = (DFF*)malloc(sizeof(DFF));
+	initDFF(dff);
+	return dff;
+}
+
+void initDFF(DFF* dff) {
 	int i;
 	dff->store = '0';
 	dff->data = '0';
@@ -115,10 +147,10 @@ void initDFF(DFFComp* dff) {
 		initNot(&dff->not[i]);
 		initLatch(&dff->latch[i]);
 	}
-	DFF(dff);
+	doDFF(dff);
 }
 
-void DFF(DFFComp* dff) {
+void doDFF(DFF* dff) {
 	dff->nand[0].in[0] = dff->store;
 	dff->nand[0].in[1] = dff->clock;
 	doNand(&dff->nand[0]);
@@ -131,10 +163,10 @@ void DFF(DFFComp* dff) {
 	doNot(&dff->not[1]);
 	dff->latch[0].store = dff->not[1].out;
 	dff->latch[0].data = dff->data;
-	Latch(&dff->latch[0]);
+	doLatch(&dff->latch[0]);
 	dff->latch[1].store = dff->not[0].out;
 	dff->latch[1].data = dff->latch[0].out;
-	Latch(&dff->latch[1]);
+	doLatch(&dff->latch[1]);
 	dff->out = dff->latch[1].out;
 }
 
@@ -142,7 +174,13 @@ void DFF(DFFComp* dff) {
 // Register
 //
 
-void initRegister(RegisterComp* reg) {
+Register* newRegister() {
+	Register* reg = (Register*)malloc(sizeof(Register));
+	initRegister(reg);
+	return reg;
+}
+
+void initRegister(Register* reg) {
 	int i;
 	reg->store = '0';
 	reg->clock = '0';
@@ -150,16 +188,16 @@ void initRegister(RegisterComp* reg) {
 		reg->data[i] = '0';
 		initDFF(&reg->dff[i]);
 	}
-	Register(reg);
+	doRegister(reg);
 }
 
-void Register(RegisterComp* reg) {
+void doRegister(Register* reg) {
 	int i;
 	for (i = 0; i < 8; i++) {
 		reg->dff[i].store = reg->store;
 		reg->dff[i].data = reg->data[i];
 		reg->dff[i].clock = reg->clock;
-		DFF(&reg->dff[i]);
+		doDFF(&reg->dff[i]);
 		reg->out[i] = reg->dff[i].out;
 	}
 }
@@ -168,7 +206,13 @@ void Register(RegisterComp* reg) {
 // Counter
 //
 
-void initCounter(CounterComp* counter) {
+Counter* newCounter() {
+	Counter* counter = (Counter*)malloc(sizeof(Counter));
+	initCounter(counter);
+	return counter;
+}
+
+void initCounter(Counter* counter) {
 	int i;
 	counter->store = '0';
 	counter->clock = '0';
@@ -178,10 +222,10 @@ void initCounter(CounterComp* counter) {
 	initIncrement(&counter->increment);
 	initRegister(&counter->reg);
 	counter->reg.store = counter->not.out;
-	Counter(counter);
+	doCounter(counter);
 }
 
-void Counter(CounterComp* counter) {
+void doCounter(Counter* counter) {
 	int i;
 	counter->mux8.store = counter->store;
 	counter->reg.clock = counter->clock;
@@ -193,8 +237,8 @@ void Counter(CounterComp* counter) {
 	doIncrement(&counter->increment);
 	
 	for (i = 0; i < 8; i++) counter->mux8.data[1][i] = counter->increment.out[i];
-	Mux8(&counter->mux8);
+	doMux8(&counter->mux8);
 	for (i = 0; i < 8; i++) counter->reg.data[i] = counter->mux8.out[i];
-	Register(&counter->reg);
+	doRegister(&counter->reg);
 	for (i = 0; i < 8; i++) counter->out[i] = counter->reg.out[i];
 }

@@ -10,6 +10,12 @@
 // Nand
 //
 
+Nand* newNand() {
+	Nand* nand = (Nand*)malloc(sizeof(Nand));
+	initNand(nand);
+	return nand;
+}
+
 void initNand(Nand* nand) {
 	for (int i = 0; i < 2; i++) nand->in[i] = '0';
 	doNand(nand);
@@ -20,15 +26,15 @@ void doNand(Nand* nand) {
 	else nand->out = '1';
 }
 
-Nand* newNand() {
-	Nand* nand = (Nand*)malloc(sizeof(Nand));
-	initNand(nand);
-	return nand;
-}
-
 //
 // Not
 //
+
+Not* newNot() {
+	Not* not = (Not*)malloc(sizeof(Not));
+	initNot(not);
+	return not;
+}
 
 void initNot(Not* not) {
 	not->in = '0';
@@ -43,15 +49,15 @@ void doNot(Not* not) {
 	not->out = not->nand.out;
 }
 
-Not* newNot() {
-	Not* not = (Not*)malloc(sizeof(Not));
-	initNot(not);
-	return not;
-}
-
 //
 // And
 //
+
+And* newAnd() {
+	And* and = (And*)malloc(sizeof(And));
+	initAnd(and);
+	return and;
+}
 
 void initAnd(And* and) {
 	for (int i = 0; i < 2; i++) and->in[i] = '0';
@@ -69,15 +75,15 @@ void doAnd(And* and) {
 	and->out = and->not.out;
 }
 
-And* newAnd() {
-	And* and = (And*)malloc(sizeof(And));
-	initAnd(and);
-	return and;
-}
-
 //
 // Or
 //
+
+Or* newOr() {
+	Or* or = (Or*)malloc(sizeof(Or));
+	initOr(or);
+	return or;
+}
 
 void initOr(Or* or) {
 	for (int i = 0; i < 2; i++) {
@@ -99,15 +105,15 @@ void doOr(Or* or) {
 	or->out = or->nand.out;
 }
 
-Or* newOr() {
-	Or* or = (Or*)malloc(sizeof(Or));
-	initOr(or);
-	return or;
-}
-
 //
 // Xor
 //
+
+Xor* newXor() {
+	Xor* xor = (Xor*)malloc(sizeof(Xor));
+	initXor(xor);
+	return xor;
+}
 
 void initXor(Xor* xor) {
 	for (int i = 0; i < 2; i++) xor->in[i] = '0';
@@ -129,10 +135,4 @@ void doXor(Xor* xor) {
 	xor->nand[3].in[1] = xor->nand[2].out;
 	doNand(&xor->nand[3]);
 	xor->out = xor->nand[3].out;
-}
-
-Xor* newXor() {
-	Xor* xor = (Xor*)malloc(sizeof(Xor));
-	initXor(xor);
-	return xor;
 }

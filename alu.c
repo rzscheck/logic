@@ -9,6 +9,12 @@
 // Unary
 //
 
+Unary* newUnary() {
+	Unary* unary = (Unary*)malloc(sizeof(Unary));
+	initUnary(unary);
+	return unary;
+}
+
 void initUnary(Unary* unary) {
 	int i;
 	unary->zero = '0';
@@ -38,10 +44,4 @@ void doUnary(Unary* unary) {
 	}
 	doMux8(&unary->mux8[1]);
 	for (i = 0; i < 8; i++) unary->out[i] = unary->mux8[1].out[i];
-}
-
-Unary* newUnary() {
-	Unary* unary = (Unary*)malloc(sizeof(Unary));
-	initUnary(unary);
-	return unary;
 }

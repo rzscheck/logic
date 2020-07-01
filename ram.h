@@ -73,36 +73,36 @@ typedef struct RAM256 {
 	Bit out[8];
 } RAM256;
 
+RAM* newRAM();
 void initRAM(RAM* ram);
 void doRAM(RAM* ram);
-RAM* newRAM();
 
+RAM4* newRAM4();
 void initRAM4(RAM4* ram4);
 void doRAM4(RAM4* ram4);
-RAM4* newRAM4();
 
+RAM8* newRAM8();
 void initRAM8(RAM8* ram8);
 void doRAM8(RAM8* ram8);
-RAM8* newRAM8();
 
+RAM16* newRAM16();
 void initRAM16(RAM16* ram16);
 void doRAM16(RAM16* ram16);
-RAM16* newRAM16();
 
+RAM32* newRAM32();
 void initRAM32(RAM32* ram32);
 void doRAM32(RAM32* ram32);
-RAM32* newRAM32();
 
+RAM64* newRAM64();
 void initRAM64(RAM64* ram64);
 void doRAM64(RAM64* ram64);
-RAM64* newRAM64();
 
+RAM128* newRAM128();
 void initRAM128(RAM128* ram128);
 void doRAM128(RAM128* ram128);
-RAM128* newRAM128();
 
+RAM256* newRAM256();
 void initRAM256(RAM256* ram256);
 void doRAM256(RAM256* ram256);
-RAM256* newRAM256();
 
 #endif

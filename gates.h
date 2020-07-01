@@ -34,24 +34,24 @@ typedef struct Xor {
 	Bit out;
 } Xor;
 
+Nand* newNand();
 void initNand(Nand* nand);
 void doNand(Nand* nand);
-Nand* newNand();
 
+Not* newNot();
 void initNot(Not* not);
 void doNot(Not* not);
-Not* newNot();
 
+And* newAnd();
 void initAnd(And* and);
 void doAnd(And* and);
-And* newAnd();
 
+Or* newOr();
 void initOr(Or* or);
 void doOr(Or* or);
-Or* newOr();
 
+Xor* newXor();
 void initXor(Xor* xor);
 void doXor(Xor* xor);
-Xor* newXor();
 
 #endif

@@ -61,32 +61,32 @@ typedef struct Counter {
 	// Register reg[256];
 // }
 
+Mux* newMux();
 void initMux(Mux* mux);
 void doMux(Mux* mux);
-Mux* newMux();
 
+Mux8* newMux8();
 void initMux8(Mux8* mux8);
 void doMux8(Mux8* mux8);
-Mux8* newMux8();
 
+DMux* newDMux();
 void initDMux(DMux* dmux);
 void doDMux(DMux* dmux);
-DMux* newDMux();
 
+Latch* newLatch();
 void initLatch(Latch* latch);
 void doLatch(Latch* latch);
-Latch* newLatch();
 
+DFF* newDFF();
 void initDFF(DFF* dff);
 void doDFF(DFF* dff);
-DFF* newDFF();
 
+Register* newRegister();
 void initRegister(Register* reg);
 void doRegister(Register* reg);
-Register* newRegister();
 
+Counter* newCounter();
 void initCounter(Counter* counter);
 void doCounter(Counter* counter);
-Counter* newCounter();
 
 #endif

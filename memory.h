@@ -10,8 +10,8 @@ typedef struct Memory {
 	Bit out[4][8]; // address, data, ALU, RAM;
 } Memory;
 
+Memory* newMemory();
 void initMemory(Memory* mem);
 void doMemory(Memory* mem);
-Memory* newMemory();
 
 #endif

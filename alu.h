@@ -9,8 +9,8 @@ typedef struct Unary {
 	Bit out[8];
 } Unary;
 
+Unary* newUnary();
 void initUnary(Unary* unary);
 void doUnary(Unary* unary);
-Unary* newUnary();
 
 #endif

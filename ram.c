@@ -10,6 +10,12 @@
 // RAM
 //
 
+RAM* newRAM() {
+	RAM* ram = (RAM*)malloc(sizeof(RAM));
+	initRAM(ram);
+	return ram;
+}
+
 void initRAM(RAM* ram) {
 	int i;
 	ram->store = '0';
@@ -39,15 +45,15 @@ void doRAM(RAM* ram) {
 	for (i = 0; i < 8; i++) ram->out[i] = ram->mux8.out[i];
 }
 
-RAM* newRAM() {
-	RAM* ram = (RAM*)malloc(sizeof(RAM));
-	initRAM(ram);
-	return ram;
-}
-
 //
 // RAM4
 //
+
+RAM4* newRAM4() {
+	RAM4* ram = (RAM4*)malloc(sizeof(RAM4));
+	initRAM4(ram);
+	return ram;
+}
 
 void initRAM4(RAM4* ram4) {
 	int i;
@@ -79,15 +85,15 @@ void doRAM4(RAM4* ram4) {
 	for (i = 0; i < 8; i++) ram4->out[i] = ram4->mux8.out[i];
 }
 
-RAM4* newRAM4() {
-	RAM4* ram = (RAM4*)malloc(sizeof(RAM4));
-	initRAM4(ram);
-	return ram;
-}
-
 //
 // RAM8
 //
+
+RAM8* newRAM8() {
+	RAM8* ram = (RAM8*)malloc(sizeof(RAM8));
+	initRAM8(ram);
+	return ram;
+}
 
 void initRAM8(RAM8* ram8) {
 	int i;
@@ -119,15 +125,15 @@ void doRAM8(RAM8* ram8) {
 	for (i = 0; i < 8; i++) ram8->out[i] = ram8->mux8.out[i];
 }
 
-RAM8* newRAM8() {
-	RAM8* ram = (RAM8*)malloc(sizeof(RAM8));
-	initRAM8(ram);
-	return ram;
-}
-
 //
 // RAM16
 //
+
+RAM16* newRAM16() {
+	RAM16* ram = (RAM16*)malloc(sizeof(RAM16));
+	initRAM16(ram);
+	return ram;
+}
 
 void initRAM16(RAM16* ram16) {
 	int i;
@@ -159,15 +165,15 @@ void doRAM16(RAM16* ram16) {
 	for (i = 0; i < 8; i++) ram16->out[i] = ram16->mux8.out[i];
 }
 
-RAM16* newRAM16() {
-	RAM16* ram = (RAM16*)malloc(sizeof(RAM16));
-	initRAM16(ram);
-	return ram;
-}
-
 //
 // RAM32
 //
+
+RAM32* newRAM32() {
+	RAM32* ram = (RAM32*)malloc(sizeof(RAM32));
+	initRAM32(ram);
+	return ram;
+}
 
 void initRAM32(RAM32* ram32) {
 	int i;
@@ -199,15 +205,15 @@ void doRAM32(RAM32* ram32) {
 	for (i = 0; i < 8; i++) ram32->out[i] = ram32->mux8.out[i];
 }
 
-RAM32* newRAM32() {
-	RAM32* ram = (RAM32*)malloc(sizeof(RAM32));
-	initRAM32(ram);
-	return ram;
-}
-
 //
 // RAM64
 //
+
+RAM64* newRAM64() {
+	RAM64* ram = (RAM64*)malloc(sizeof(RAM64));
+	initRAM64(ram);
+	return ram;
+}
 
 void initRAM64(RAM64* ram64) {
 	int i;
@@ -239,15 +245,15 @@ void doRAM64(RAM64* ram64) {
 	for (i = 0; i < 8; i++) ram64->out[i] = ram64->mux8.out[i];
 }
 
-RAM64* newRAM64() {
-	RAM64* ram = (RAM64*)malloc(sizeof(RAM64));
-	initRAM64(ram);
-	return ram;
-}
-
 //
 // RAM128
 //
+
+RAM128* newRAM128() {
+	RAM128* ram = (RAM128*)malloc(sizeof(RAM128));
+	initRAM128(ram);
+	return ram;
+}
 
 void initRAM128(RAM128* ram128) {
 	int i;
@@ -279,15 +285,15 @@ void doRAM128(RAM128* ram128) {
 	for (i = 0; i < 8; i++) ram128->out[i] = ram128->mux8.out[i];
 }
 
-RAM128* newRAM128() {
-	RAM128* ram = (RAM128*)malloc(sizeof(RAM128));
-	initRAM128(ram);
-	return ram;
-}
-
 //
 // RAM256
 //
+
+RAM256* newRAM256() {
+	RAM256* ram = (RAM256*)malloc(sizeof(RAM256));
+	initRAM256(ram);
+	return ram;
+}
 
 void initRAM256(RAM256* ram256) {
 	int i;
@@ -317,10 +323,4 @@ void doRAM256(RAM256* ram256) {
 	ram256->mux8.store = ram256->address[0];
 	doMux8(&ram256->mux8);
 	for (i = 0; i < 8; i++) ram256->out[i] = ram256->mux8.out[i];
-}
-
-RAM256* newRAM256() {
-	RAM256* ram = (RAM256*)malloc(sizeof(RAM256));
-	initRAM256(ram);
-	return ram;
 }

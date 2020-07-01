@@ -8,6 +8,12 @@
 // Mux
 //
 
+Mux* newMux() {
+	Mux* mux = (Mux*)malloc(sizeof(Mux));
+	initMux(mux);
+	return mux;
+}
+
 void initMux(Mux* mux) {
 	int i;
 	mux->store = '0';
@@ -32,15 +38,15 @@ void doMux(Mux* mux) {
 	mux->out = mux->nand[2].out;
 }
 
-Mux* newMux() {
-	Mux* mux = (Mux*)malloc(sizeof(Mux));
-	initMux(mux);
-	return mux;
-}
-
 //
 // Mux8
 //
+
+Mux8* newMux8() {
+	Mux8* mux8 = (Mux8*)malloc(sizeof(Mux8));
+	initMux8(mux8);
+	return mux8;
+}
 
 void initMux8(Mux8* mux8) {
 	int i, j;
@@ -64,15 +70,15 @@ void doMux8(Mux8* mux8) {
 	}
 }
 
-Mux8* newMux8() {
-	Mux8* mux8 = (Mux8*)malloc(sizeof(Mux8));
-	initMux8(mux8);
-	return mux8;
-}
-
 //
 // DMux
 //
+
+DMux* newDMux() {
+	DMux* dmux = (DMux*)malloc(sizeof(DMux));
+	initDMux(dmux);
+	return dmux;
+}
 
 void initDMux(DMux* dmux) {
 	int i;
@@ -96,15 +102,15 @@ void doDMux(DMux* dmux) {
 	dmux->out[1] = dmux->and[1].out;
 }
 
-DMux* newDMux() {
-	DMux* dmux = (DMux*)malloc(sizeof(DMux));
-	initDMux(dmux);
-	return dmux;
-}
-
 //
 // Latch
 //
+
+Latch* newLatch() {
+	Latch* latch = (Latch*)malloc(sizeof(Latch));
+	initLatch(latch);
+	return latch;
+}
 
 void initLatch(Latch* latch) {
 	latch->store = '0';
@@ -121,15 +127,15 @@ void doLatch(Latch* latch) {
 	latch->out = latch->mux.out;
 }
 
-Latch* newLatch() {
-	Latch* latch = (Latch*)malloc(sizeof(Latch));
-	initLatch(latch);
-	return latch;
-}
-
 //
 // DFF
 //
+
+DFF* newDFF() {
+	DFF* dff = (DFF*)malloc(sizeof(DFF));
+	initDFF(dff);
+	return dff;
+}
 
 void initDFF(DFF* dff) {
 	int i;
@@ -164,15 +170,15 @@ void doDFF(DFF* dff) {
 	dff->out = dff->latch[1].out;
 }
 
-DFF* newDFF() {
-	DFF* dff = (DFF*)malloc(sizeof(DFF));
-	initDFF(dff);
-	return dff;
-}
-
 //
 // Register
 //
+
+Register* newRegister() {
+	Register* reg = (Register*)malloc(sizeof(Register));
+	initRegister(reg);
+	return reg;
+}
 
 void initRegister(Register* reg) {
 	int i;
@@ -196,15 +202,15 @@ void doRegister(Register* reg) {
 	}
 }
 
-Register* newRegister() {
-	Register* reg = (Register*)malloc(sizeof(Register));
-	initRegister(reg);
-	return reg;
-}
-
 //
 // Counter
 //
+
+Counter* newCounter() {
+	Counter* counter = (Counter*)malloc(sizeof(Counter));
+	initCounter(counter);
+	return counter;
+}
 
 void initCounter(Counter* counter) {
 	int i;
@@ -235,10 +241,4 @@ void doCounter(Counter* counter) {
 	for (i = 0; i < 8; i++) counter->reg.data[i] = counter->mux8.out[i];
 	doRegister(&counter->reg);
 	for (i = 0; i < 8; i++) counter->out[i] = counter->reg.out[i];
-}
-
-Counter* newCounter() {
-	Counter* counter = (Counter*)malloc(sizeof(Counter));
-	initCounter(counter);
-	return counter;
 }

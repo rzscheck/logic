@@ -8,6 +8,12 @@
 // HalfAdd
 //
 
+HalfAdd* newHalfAdd() {
+	HalfAdd* halfAdd = (HalfAdd*)malloc(sizeof(HalfAdd));
+	initHalfAdd(halfAdd);
+	return halfAdd;
+}
+
 void initHalfAdd(HalfAdd* halfAdd) {
 	int i;
 	for (i = 0; i < 2; i++) halfAdd->in[i] = '0';
@@ -35,15 +41,15 @@ void doHalfAdd(HalfAdd* halfAdd) {
 	halfAdd->out[1] = halfAdd->nand[3].out;
 }
 
-HalfAdd* newHalfAdd() {
-	HalfAdd* halfAdd = (HalfAdd*)malloc(sizeof(HalfAdd));
-	initHalfAdd(halfAdd);
-	return halfAdd;
-}
-
 //
 // Full add
 //
+
+FullAdd* newFullAdd() {
+	FullAdd* fullAdd = (FullAdd*)malloc(sizeof(FullAdd));
+	initFullAdd(fullAdd);
+	return fullAdd;
+}
 
 void initFullAdd(FullAdd* fullAdd) {
 	int i;
@@ -84,15 +90,15 @@ void doFullAdd(FullAdd* fullAdd) {
 	fullAdd->out[1] = fullAdd->nand[7].out;
 }
 
-FullAdd* newFullAdd() {
-	FullAdd* fullAdd = (FullAdd*)malloc(sizeof(FullAdd));
-	initFullAdd(fullAdd);
-	return fullAdd;
-}
-
 //
 // Add
 //
+
+Add* newAdd() {
+	Add* add = (Add*)malloc(sizeof(Add));
+	initAdd(add);
+	return add;
+}
 
 void initAdd(Add* add) {
 	int i, j;
@@ -119,15 +125,15 @@ void doAdd(Add* add) {
 	add->carryOut = add->fullAdd[7].out[0];
 }
 
-Add* newAdd() {
-	Add* add = (Add*)malloc(sizeof(Add));
-	initAdd(add);
-	return add;
-}
-
 //
 // Increment
 //
+
+Increment* newIncrement() {
+	Increment* increment = (Increment*)malloc(sizeof(Increment));
+	initIncrement(increment);
+	return increment;
+}
 
 void initIncrement(Increment* increment) {
 	int i;
@@ -152,15 +158,15 @@ void doIncrement(Increment* increment) {
 	}
 }
 
-Increment* newIncrement() {
-	Increment* increment = (Increment*)malloc(sizeof(Increment));
-	initIncrement(increment);
-	return increment;
-}
-
 //
 // Subtract
 //
+
+Subtract* newSubtract() {
+	Subtract* subtract = (Subtract*)malloc(sizeof(Subtract));
+	initSubtract(subtract);
+	return subtract;
+}
 
 void initSubtract(Subtract* subtract) {
 	int i, j;
@@ -191,15 +197,15 @@ void doSubtract(Subtract* subtract) {
 	}
 }
 
-Subtract* newSubtract() {
-	Subtract* subtract = (Subtract*)malloc(sizeof(Subtract));
-	initSubtract(subtract);
-	return subtract;
-}
-
 //
 // EqualsZero
 //
+
+EqualsZero* newEqualsZero() {
+	EqualsZero* equalsZero = (EqualsZero*)malloc(sizeof(EqualsZero));
+	initEqualsZero(equalsZero);
+	return equalsZero;
+}
 
 void initEqualsZero(EqualsZero* equalsZero) {
 	int i;
@@ -236,15 +242,15 @@ void doEqualsZero(EqualsZero* equalsZero) {
 	equalsZero->out = equalsZero->not.out;
 }
 
-EqualsZero* newEqualsZero() {
-	EqualsZero* equalsZero = (EqualsZero*)malloc(sizeof(EqualsZero));
-	initEqualsZero(equalsZero);
-	return equalsZero;
-}
-
 //
 // LessThanZero
 //
+
+LessThanZero* newLessThanZero() {
+	LessThanZero* lessThanZero = (LessThanZero*)malloc(sizeof(LessThanZero));
+	initLessThanZero(lessThanZero);
+	return lessThanZero;
+}
 
 void initLessThanZero(LessThanZero* lessThanZero) {
 	int i;
@@ -254,10 +260,4 @@ void initLessThanZero(LessThanZero* lessThanZero) {
 
 void doLessThanZero(LessThanZero* lessThanZero) {
 	lessThanZero->out = lessThanZero->in[0];
-}
-
-LessThanZero* newLessThanZero() {
-	LessThanZero* lessThanZero = (LessThanZero*)malloc(sizeof(LessThanZero));
-	initLessThanZero(lessThanZero);
-	return lessThanZero;
 }

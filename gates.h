@@ -8,11 +8,19 @@ typedef struct Nand {
 	Bit out;
 } Nand;
 
+Nand *newNand();
+void initNand(Nand *nand);
+void doNand(Nand *nand);
+
 typedef struct Not {
 	Bit in;
 	Nand nand;
 	Bit out;
 } Not;
+
+Not *newNot();
+void initNot(Not * not);
+void doNot(Not * not);
 
 typedef struct And {
 	Bit in[2];
@@ -21,6 +29,10 @@ typedef struct And {
 	Bit out;
 } And;
 
+And *newAnd();
+void initAnd(And *and);
+void doAnd(And *and);
+
 typedef struct Or {
 	Bit in[2];
 	Nand nand;
@@ -28,30 +40,18 @@ typedef struct Or {
 	Bit out;
 } Or;
 
+Or *newOr();
+void initOr(Or *or );
+void doOr(Or *or );
+
 typedef struct Xor {
 	Bit in[2];
 	Nand nand[4];
 	Bit out;
 } Xor;
 
-Nand* newNand();
-void initNand(Nand* nand);
-void doNand(Nand* nand);
-
-Not* newNot();
-void initNot(Not* not);
-void doNot(Not* not);
-
-And* newAnd();
-void initAnd(And* and);
-void doAnd(And* and);
-
-Or* newOr();
-void initOr(Or* or);
-void doOr(Or* or);
-
-Xor* newXor();
-void initXor(Xor* xor);
-void doXor(Xor* xor);
+Xor *newXor();
+void initXor(Xor *xor);
+void doXor(Xor *xor);
 
 #endif

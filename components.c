@@ -1,5 +1,6 @@
 #include <stdlib.h>
 
+#include "types.h"
 #include "gates.h"
 #include "arithmetic.h"
 #include "components.h"
@@ -16,8 +17,8 @@ Mux* newMux() {
 
 void initMux(Mux* mux) {
 	int i;
-	mux->store = '0';
-	for (i = 0; i < 2; i++) mux->data[i] = '0';
+	mux->store = BIT_0;
+	for (i = 0; i < 2; i++) mux->data[i] = BIT_0;
 	initNot(&mux->not);
 	for (i = 0; i < 3; i++) initNand(&mux->nand[i]);
 	doMux(mux);
@@ -50,10 +51,10 @@ Mux8* newMux8() {
 
 void initMux8(Mux8* mux8) {
 	int i, j;
-	mux8->store = '0';
+	mux8->store = BIT_0;
 	for (i = 0; i < 2; i++) {
 		for (j = 0; j < 8; j++) {
-			mux8->data[i][j] = '0';
+			mux8->data[i][j] = BIT_0;
 		}
 	}
 	for (i = 0; i < 8; i++) initMux(&mux8->mux[i]);
@@ -82,8 +83,8 @@ DMux* newDMux() {
 
 void initDMux(DMux* dmux) {
 	int i;
-	dmux->store = '0';
-	dmux->data = '0';
+	dmux->store = BIT_0;
+	dmux->data = BIT_0;
 	for (i = 0; i < 2; i++) initAnd(&dmux->and[i]);
 	initNot(&dmux->not);
 	doDMux(dmux);
@@ -113,8 +114,8 @@ Latch* newLatch() {
 }
 
 void initLatch(Latch* latch) {
-	latch->store = '0';
-	latch->data = '0';
+	latch->store = BIT_0;
+	latch->data = BIT_0;
 	initMux(&latch->mux);
 	doLatch(latch);
 }
@@ -139,9 +140,9 @@ DFF* newDFF() {
 
 void initDFF(DFF* dff) {
 	int i;
-	dff->store = '0';
-	dff->data = '0';
-	dff->clock = '0';
+	dff->store = BIT_0;
+	dff->data = BIT_0;
+	dff->clock = BIT_0;
 	for (i = 0; i < 2; i++) {
 		initNand(&dff->nand[i]);
 		initNot(&dff->not[i]);
@@ -182,10 +183,10 @@ Register* newRegister() {
 
 void initRegister(Register* reg) {
 	int i;
-	reg->store = '0';
-	reg->clock = '0';
+	reg->store = BIT_0;
+	reg->clock = BIT_0;
 	for (i = 0; i < 8; i++) {
-		reg->data[i] = '0';
+		reg->data[i] = BIT_0;
 		initDFF(&reg->dff[i]);
 	}
 	doRegister(reg);
@@ -214,9 +215,9 @@ Counter* newCounter() {
 
 void initCounter(Counter* counter) {
 	int i;
-	counter->store = '0';
-	counter->clock = '0';
-	for (i = 0; i < 8; i++) counter->data[i] = '0';
+	counter->store = BIT_0;
+	counter->clock = BIT_0;
+	for (i = 0; i < 8; i++) counter->data[i] = BIT_0;
 	initMux8(&counter->mux8);
 	initNot(&counter->not);
 	initIncrement(&counter->increment);

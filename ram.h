@@ -10,6 +10,10 @@ typedef struct RAM {
 	Bit out[8];
 } RAM;
 
+RAM *newRAM();
+void initRAM(RAM *ram);
+void doRAM(RAM *ram);
+
 typedef struct RAM4 {
 	Bit store, address[2], clock;
 	Bit data[8];
@@ -18,6 +22,10 @@ typedef struct RAM4 {
 	Mux8 mux8;
 	Bit out[8];
 } RAM4;
+
+RAM4 *newRAM4();
+void initRAM4(RAM4 *ram4);
+void doRAM4(RAM4 *ram4);
 
 typedef struct RAM8 {
 	Bit store, address[3], clock;
@@ -28,6 +36,10 @@ typedef struct RAM8 {
 	Bit out[8];
 } RAM8;
 
+RAM8 *newRAM8();
+void initRAM8(RAM8 *ram8);
+void doRAM8(RAM8 *ram8);
+
 typedef struct RAM16 {
 	Bit store, address[4], clock;
 	Bit data[8];
@@ -36,6 +48,10 @@ typedef struct RAM16 {
 	Mux8 mux8;
 	Bit out[8];
 } RAM16;
+
+RAM16 *newRAM16();
+void initRAM16(RAM16 *ram16);
+void doRAM16(RAM16 *ram16);
 
 typedef struct RAM32 {
 	Bit store, address[5], clock;
@@ -46,6 +62,10 @@ typedef struct RAM32 {
 	Bit out[8];
 } RAM32;
 
+RAM32 *newRAM32();
+void initRAM32(RAM32 *ram32);
+void doRAM32(RAM32 *ram32);
+
 typedef struct RAM64 {
 	Bit store, address[6], clock;
 	Bit data[8];
@@ -54,6 +74,10 @@ typedef struct RAM64 {
 	Mux8 mux8;
 	Bit out[8];
 } RAM64;
+
+RAM64 *newRAM64();
+void initRAM64(RAM64 *ram64);
+void doRAM64(RAM64 *ram64);
 
 typedef struct RAM128 {
 	Bit store, address[7], clock;
@@ -64,6 +88,10 @@ typedef struct RAM128 {
 	Bit out[8];
 } RAM128;
 
+RAM128 *newRAM128();
+void initRAM128(RAM128 *ram128);
+void doRAM128(RAM128 *ram128);
+
 typedef struct RAM256 {
 	Bit store, address[8], clock;
 	Bit data[8];
@@ -72,34 +100,6 @@ typedef struct RAM256 {
 	Mux8 mux8;
 	Bit out[8];
 } RAM256;
-
-RAM* newRAM();
-void initRAM(RAM* ram);
-void doRAM(RAM* ram);
-
-RAM4* newRAM4();
-void initRAM4(RAM4* ram4);
-void doRAM4(RAM4* ram4);
-
-RAM8* newRAM8();
-void initRAM8(RAM8* ram8);
-void doRAM8(RAM8* ram8);
-
-RAM16* newRAM16();
-void initRAM16(RAM16* ram16);
-void doRAM16(RAM16* ram16);
-
-RAM32* newRAM32();
-void initRAM32(RAM32* ram32);
-void doRAM32(RAM32* ram32);
-
-RAM64* newRAM64();
-void initRAM64(RAM64* ram64);
-void doRAM64(RAM64* ram64);
-
-RAM128* newRAM128();
-void initRAM128(RAM128* ram128);
-void doRAM128(RAM128* ram128);
 
 RAM256* newRAM256();
 void initRAM256(RAM256* ram256);

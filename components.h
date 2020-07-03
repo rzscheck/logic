@@ -1,6 +1,8 @@
 #ifndef logic_components_h
 #define logic_components_h
 
+#import "types.h"
+
 typedef struct Mux {
 	Bit store;
 	Bit data[2];
@@ -9,12 +11,20 @@ typedef struct Mux {
 	Bit out;
 } Mux;
 
+Mux *newMux();
+void initMux(Mux *mux);
+void doMux(Mux *mux);
+
 typedef struct Mux8 {
 	Bit store;
 	Bit data[2][8];
 	Mux mux[8];
 	Bit out[8];
 } Mux8;
+
+Mux8 *newMux8();
+void initMux8(Mux8 *mux8);
+void doMux8(Mux8 *mux8);
 
 typedef struct DMux {
 	Bit store, data;
@@ -23,11 +33,19 @@ typedef struct DMux {
 	Bit out[2];
 } DMux;
 
+DMux *newDMux();
+void initDMux(DMux *dmux);
+void doDMux(DMux *dmux);
+
 typedef struct Latch {
 	Bit store, data;
 	Mux mux;
 	Bit out;
 } Latch;
+
+Latch *newLatch();
+void initLatch(Latch *latch);
+void doLatch(Latch *latch);
 
 typedef struct DFF {
 	Bit store, data, clock;
@@ -37,12 +55,20 @@ typedef struct DFF {
 	Bit out;
 } DFF;
 
+DFF *newDFF();
+void initDFF(DFF *dff);
+void doDFF(DFF *dff);
+
 typedef struct Register {
 	Bit store, clock;
 	Bit data[8];
 	DFF dff[8];
 	Bit out[8];
 } Register;
+
+Register *newRegister();
+void initRegister(Register *reg);
+void doRegister(Register *reg);
 
 typedef struct Counter {
 	Bit store, clock;
@@ -54,39 +80,15 @@ typedef struct Counter {
 	Bit out[8];
 } Counter;
 
+Counter *newCounter();
+void initCounter(Counter *counter);
+void doCounter(Counter *counter);
+
 // typedef struct RAM {
 	// Bit store, clock;
 	// Bit address[8], data[8];
 	
 	// Register reg[256];
 // }
-
-Mux* newMux();
-void initMux(Mux* mux);
-void doMux(Mux* mux);
-
-Mux8* newMux8();
-void initMux8(Mux8* mux8);
-void doMux8(Mux8* mux8);
-
-DMux* newDMux();
-void initDMux(DMux* dmux);
-void doDMux(DMux* dmux);
-
-Latch* newLatch();
-void initLatch(Latch* latch);
-void doLatch(Latch* latch);
-
-DFF* newDFF();
-void initDFF(DFF* dff);
-void doDFF(DFF* dff);
-
-Register* newRegister();
-void initRegister(Register* reg);
-void doRegister(Register* reg);
-
-Counter* newCounter();
-void initCounter(Counter* counter);
-void doCounter(Counter* counter);
 
 #endif

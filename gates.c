@@ -17,13 +17,13 @@ Nand* newNand() {
 }
 
 void initNand(Nand* nand) {
-	for (int i = 0; i < 2; i++) nand->in[i] = '0';
+	for (int i = 0; i < 2; i++) nand->in[i] = BIT_0;
 	doNand(nand);
 }
 
 void doNand(Nand* nand) {
-	if ((nand->in[0] == '1') && (nand->in[1] == '1')) nand->out = '0';
-	else nand->out = '1';
+	if ((nand->in[0] == BIT_1) && (nand->in[1] == BIT_1)) nand->out = BIT_0;
+	else nand->out = BIT_1;
 }
 
 //
@@ -37,7 +37,7 @@ Not* newNot() {
 }
 
 void initNot(Not* not) {
-	not->in = '0';
+	not->in = BIT_0;
 	initNand(&not->nand);
 	doNot(not);
 }
@@ -60,7 +60,7 @@ And* newAnd() {
 }
 
 void initAnd(And* and) {
-	for (int i = 0; i < 2; i++) and->in[i] = '0';
+	for (int i = 0; i < 2; i++) and->in[i] = BIT_0;
 	initNand(&and->nand);
 	initNot(&and->not);
 	doAnd(and);
@@ -87,7 +87,7 @@ Or* newOr() {
 
 void initOr(Or* or) {
 	for (int i = 0; i < 2; i++) {
-		or->in[i] = '0';
+		or->in[i] = BIT_0;
 		initNot(&or->not[i]);
 	}
 	initNand(&or->nand);
@@ -116,7 +116,7 @@ Xor* newXor() {
 }
 
 void initXor(Xor* xor) {
-	for (int i = 0; i < 2; i++) xor->in[i] = '0';
+	for (int i = 0; i < 2; i++) xor->in[i] = BIT_0;
 	for (int i = 0; i < 4; i++) initNand(&xor->nand[i]);
 	doXor(xor);
 }

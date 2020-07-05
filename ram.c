@@ -18,10 +18,10 @@ RAM* newRAM() {
 
 void initRAM(RAM* ram) {
 	int i;
-	ram->store = '0';
-	ram->clock = '0';
-	ram->address = '0';
-	for (i = 0; i < 8; i++) ram->data[i] = '0';
+	ram->store = BIT_0;
+	ram->clock = BIT_0;
+	ram->address = BIT_0;
+	for (i = 0; i < 8; i++) ram->data[i] = BIT_0;
 	initDMux(&ram->dmux);
 	for (i = 0; i < 2; i++) initRegister(&ram->reg[i]);
 	initMux8(&ram->mux8);
@@ -57,10 +57,10 @@ RAM4* newRAM4() {
 
 void initRAM4(RAM4* ram4) {
 	int i;
-	ram4->store = '0';
-	ram4->clock = '0';
-	for (i = 0; i < 2; i++) ram4->address[i] = '0';
-	for (i = 0; i < 8; i++) ram4->data[i] = '0';
+	ram4->store = BIT_0;
+	ram4->clock = BIT_0;
+	for (i = 0; i < 2; i++) ram4->address[i] = BIT_0;
+	for (i = 0; i < 8; i++) ram4->data[i] = BIT_0;
 	initDMux(&ram4->dmux);
 	for (i = 0; i < 2; i++) initRAM(&ram4->ram[i]);
 	initMux8(&ram4->mux8);
@@ -97,10 +97,10 @@ RAM8* newRAM8() {
 
 void initRAM8(RAM8* ram8) {
 	int i;
-	ram8->store = '0';
-	ram8->clock = '0';
-	for (i = 0; i < 3; i++) ram8->address[i] = '0';
-	for (i = 0; i < 8; i++) ram8->data[i] = '0';
+	ram8->store = BIT_0;
+	ram8->clock = BIT_0;
+	for (i = 0; i < 3; i++) ram8->address[i] = BIT_0;
+	for (i = 0; i < 8; i++) ram8->data[i] = BIT_0;
 	initDMux(&ram8->dmux);
 	for (i = 0; i < 2; i++) initRAM4(&ram8->ram4[i]);
 	initMux8(&ram8->mux8);
@@ -137,10 +137,10 @@ RAM16* newRAM16() {
 
 void initRAM16(RAM16* ram16) {
 	int i;
-	ram16->store = '0';
-	ram16->clock = '0';
-	for (i = 0; i < 4; i++) ram16->address[i] = '0';
-	for (i = 0; i < 8; i++) ram16->data[i] = '0';
+	ram16->store = BIT_0;
+	ram16->clock = BIT_0;
+	for (i = 0; i < 4; i++) ram16->address[i] = BIT_0;
+	for (i = 0; i < 8; i++) ram16->data[i] = BIT_0;
 	initDMux(&ram16->dmux);
 	for (i = 0; i < 2; i++) initRAM8(&ram16->ram8[i]);
 	initMux8(&ram16->mux8);
@@ -177,10 +177,10 @@ RAM32* newRAM32() {
 
 void initRAM32(RAM32* ram32) {
 	int i;
-	ram32->store = '0';
-	ram32->clock = '0';
-	for (i = 0; i < 5; i++) ram32->address[i] = '0';
-	for (i = 0; i < 8; i++) ram32->data[i] = '0';
+	ram32->store = BIT_0;
+	ram32->clock = BIT_0;
+	for (i = 0; i < 5; i++) ram32->address[i] = BIT_0;
+	for (i = 0; i < 8; i++) ram32->data[i] = BIT_0;
 	initDMux(&ram32->dmux);
 	for (i = 0; i < 2; i++) initRAM16(&ram32->ram16[i]);
 	initMux8(&ram32->mux8);
@@ -217,10 +217,10 @@ RAM64* newRAM64() {
 
 void initRAM64(RAM64* ram64) {
 	int i;
-	ram64->store = '0';
-	ram64->clock = '0';
-	for (i = 0; i < 6; i++) ram64->address[i] = '0';
-	for (i = 0; i < 8; i++) ram64->data[i] = '0';
+	ram64->store = BIT_0;
+	ram64->clock = BIT_0;
+	for (i = 0; i < 6; i++) ram64->address[i] = BIT_0;
+	for (i = 0; i < 8; i++) ram64->data[i] = BIT_0;
 	initDMux(&ram64->dmux);
 	for (i = 0; i < 2; i++) initRAM32(&ram64->ram32[i]);
 	initMux8(&ram64->mux8);
@@ -257,10 +257,10 @@ RAM128* newRAM128() {
 
 void initRAM128(RAM128* ram128) {
 	int i;
-	ram128->store = '0';
-	ram128->clock = '0';
-	for (i = 0; i < 7; i++) ram128->address[i] = '0';
-	for (i = 0; i < 8; i++) ram128->data[i] = '0';
+	ram128->store = BIT_0;
+	ram128->clock = BIT_0;
+	for (i = 0; i < 7; i++) ram128->address[i] = BIT_0;
+	for (i = 0; i < 8; i++) ram128->data[i] = BIT_0;
 	initDMux(&ram128->dmux);
 	for (i = 0; i < 2; i++) initRAM64(&ram128->ram64[i]);
 	initMux8(&ram128->mux8);
@@ -297,10 +297,10 @@ RAM256* newRAM256() {
 
 void initRAM256(RAM256* ram256) {
 	int i;
-	ram256->store = '0';
-	ram256->clock = '0';
-	for (i = 0; i < 8; i++) ram256->address[i] = '0';
-	for (i = 0; i < 8; i++) ram256->data[i] = '0';
+	ram256->store = BIT_0;
+	ram256->clock = BIT_0;
+	for (i = 0; i < 8; i++) ram256->address[i] = BIT_0;
+	for (i = 0; i < 8; i++) ram256->data[i] = BIT_0;
 	initDMux(&ram256->dmux);
 	for (i = 0; i < 2; i++) initRAM128(&ram256->ram128[i]);
 	initMux8(&ram256->mux8);

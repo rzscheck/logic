@@ -1,7 +1,7 @@
 #ifndef logic_components_h
 #define logic_components_h
 
-#import "types.h"
+#include "types.h"
 
 typedef struct Mux {
 	Bit store;

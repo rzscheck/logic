@@ -496,7 +496,7 @@ void testMemory() {
 	mem->clock = '1';
 	doMemory(mem);
 	// mem->store[0] = '1';
-	mem->store[3] = '0';
+	mem->store[3] = '1';
 	for (i = 0; i < 8; i++) mem->data[i] = '0';
 	doMemory(mem);
 	mem->clock = '0';

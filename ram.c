@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 #include "components.h"
+#include "types.h"
 #include "ram.h"
 
 //

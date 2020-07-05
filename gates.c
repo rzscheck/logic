@@ -1,6 +1,7 @@
-#include "gates.h"
-
 #include <stdlib.h>
+
+#include "types.h"
+#include "gates.h"
 
 // Each logic gate and circuit is a struct, defined in a header file
 // There's an initialization function for each gate/circuit that sets its inputs to zero and does the same to any subcomponents it might have
